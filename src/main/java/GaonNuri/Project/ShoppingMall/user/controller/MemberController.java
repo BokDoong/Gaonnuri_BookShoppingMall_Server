@@ -2,11 +2,13 @@ package GaonNuri.Project.ShoppingMall.user.controller;
 
 import GaonNuri.Project.ShoppingMall.user.data.dto.MemberResponseDto;
 import GaonNuri.Project.ShoppingMall.user.data.dto.MemberUpdateDto;
+import GaonNuri.Project.ShoppingMall.user.data.validation.UpdateValidation;
 import GaonNuri.Project.ShoppingMall.user.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -25,7 +27,7 @@ public class MemberController {
     }
 
     @PutMapping("/update")
-    public ResponseEntity<MemberResponseDto> updateMyInfo(@RequestBody MemberUpdateDto dto) {
+    public ResponseEntity<MemberResponseDto> updateMyInfo(@Validated(UpdateValidation.class) @RequestBody MemberUpdateDto dto) {
         memberService.updateMyInfo(dto);
         return ResponseEntity.ok(memberService.getMyInfo());
     }
