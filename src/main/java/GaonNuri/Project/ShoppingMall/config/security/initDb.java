@@ -27,6 +27,7 @@ public class initDb {
 
         private final AuthorityRepository authorityRepository;
 
+        //authority DB 에 ROLE_ADMIN, ROLE_USER 저장
         public void dbInit() {
             authorityRepository.save(new Authority(AuthorityEnum.ROLE_ADMIN));
             authorityRepository.save(new Authority(AuthorityEnum.ROLE_USER));

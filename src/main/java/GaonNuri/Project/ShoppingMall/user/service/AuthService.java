@@ -57,7 +57,7 @@ public class AuthService {
      */
     @Transactional
     public TokenDto login(MemberRequestDto memberRequestDto) {
-        // Dto의 email, password를 받고 UsernamePasswordAuthenticationToken 객체 생성
+        // Dto 의 email, password 를 받고 UsernamePasswordAuthenticationToken 객체 생성
         UsernamePasswordAuthenticationToken authenticationToken = memberRequestDto.toAuthentication();
 
         // authenticate 메서드가 실행이 될 때 CustomUserDetailsService 에서 만들었던 loadUserByUsername 메서드가 실행됨
