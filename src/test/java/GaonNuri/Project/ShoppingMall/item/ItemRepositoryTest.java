@@ -3,6 +3,7 @@ package GaonNuri.Project.ShoppingMall.item;
 import GaonNuri.Project.ShoppingMall.item.data.entity.Items;
 import GaonNuri.Project.ShoppingMall.item.data.enums.ItemStatus;
 import GaonNuri.Project.ShoppingMall.item.repository.inter.ItemsRepository;
+import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,9 @@ public class ItemRepositoryTest {
 
     @Autowired
     private ItemsRepository itemsRepository;
+
+    @Autowired
+    JPAQueryFactory jpaQueryFactory;
 
     @Test
     void 상품_조회() {
