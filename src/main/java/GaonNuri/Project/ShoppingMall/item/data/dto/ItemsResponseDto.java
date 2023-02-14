@@ -11,20 +11,20 @@ public class ItemsResponseDto {
 
     private ItemsResponseDto(){}
 
-    //관리자 페이지에서 보는 상품 정보 목록
+    //상품 설명 포함
     @Data
     @Builder
     @AllArgsConstructor
     @NoArgsConstructor
-    public static class AdminItemsInfo{
+    public static class DetailItemsInfo{
 
         private String itemName;
         private int price;
         private String itemDetail;
         private ItemStatus itemStatus;
 
-        public static AdminItemsInfo entityToDTO(Items entity){
-            return AdminItemsInfo.builder()
+        public static DetailItemsInfo entityToDTO(Items entity){
+            return DetailItemsInfo.builder()
                     .itemName(entity.getItemName())
                     .price(entity.getPrice())
                     .itemDetail(entity.getItemDetail())
@@ -33,19 +33,20 @@ public class ItemsResponseDto {
         }
     }
 
-    //상품 누르면 누구나 볼 수 있는 정보
+
+    //상품 설명 제거
     @Data
     @Builder
     @AllArgsConstructor
     @NoArgsConstructor
-    public static class UserItemsInfo {
+    public static class ItemsInfo {
 
         private String itemName;
         private int price;
         private ItemStatus itemStatus;
 
-        public static UserItemsInfo entityToDTO(Items entity) {
-            return UserItemsInfo.builder()
+        public static ItemsInfo entityToDTO(Items entity) {
+            return ItemsInfo.builder()
                     .itemName(entity.getItemName())
                     .price(entity.getPrice())
                     .itemStatus(entity.getItemStatus())

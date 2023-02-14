@@ -50,7 +50,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 //권한 설정
                 .and()
                 .authorizeRequests()
-                .antMatchers("/api/v1/auth/**", "/api/v1/item").permitAll()
+                .antMatchers("/api/v1/auth/**", "/api/v1/item/**").permitAll()
                 .antMatchers("/api/v1/admin/**").hasRole("ADMIN") //관리자 인증 필요
                 .antMatchers("/api/v1/**").authenticated()
 

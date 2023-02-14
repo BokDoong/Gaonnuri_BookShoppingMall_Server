@@ -2,7 +2,7 @@ package GaonNuri.Project.ShoppingMall.order;
 
 import GaonNuri.Project.ShoppingMall.item.data.entity.Items;
 import GaonNuri.Project.ShoppingMall.item.data.enums.ItemStatus;
-import GaonNuri.Project.ShoppingMall.item.repository.inter.ItemsRepository;
+import GaonNuri.Project.ShoppingMall.item.repository.ItemsRepository;
 import GaonNuri.Project.ShoppingMall.order.data.entity.Order;
 import GaonNuri.Project.ShoppingMall.order.data.entity.OrderItem;
 import GaonNuri.Project.ShoppingMall.order.repository.OrderRepository;
@@ -74,5 +74,7 @@ public class OrderTest {
                 .orElseThrow(EntityNotFoundException::new);
         Assertions.assertEquals(3, savedOrder.getOrderItems().size());
     }
+
+
 
 }

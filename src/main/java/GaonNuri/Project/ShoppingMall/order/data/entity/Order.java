@@ -6,7 +6,6 @@ import GaonNuri.Project.ShoppingMall.user.data.entity.Member;
 import lombok.*;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,13 +29,11 @@ public class Order extends BaseTimeEntity {
     @JoinColumn(name = "member_id")
     private Member member;
 
-    private LocalDateTime orderDate;
-
     @Enumerated(EnumType.STRING)
     private OrderStatus orderStatus;
 
-    //order_item 테이블의 order 필드에 매핑 + cascade(ALL)
-    //고아객체 제거 - 부모 엔티티 삭제될때 같이 삭제됨
+    //order_item 테이블의 order 필드에 매핑 + cascade(ALL) : Order 이 저장될 때, OrderItem 이 같이 저장됨.
+    //고아객체 제거 - 부모 엔티티와 연관관계가 끊길 때 삭제
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<OrderItem> orderItems = new ArrayList<>();
 }
