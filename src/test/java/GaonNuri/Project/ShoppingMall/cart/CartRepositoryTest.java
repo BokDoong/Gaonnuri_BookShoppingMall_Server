@@ -2,8 +2,8 @@ package GaonNuri.Project.ShoppingMall.cart;
 
 import GaonNuri.Project.ShoppingMall.cart.data.entity.Cart;
 import GaonNuri.Project.ShoppingMall.cart.repository.CartRepository;
-import GaonNuri.Project.ShoppingMall.user.data.entity.Member;
-import GaonNuri.Project.ShoppingMall.user.repository.MemberRepository;
+import GaonNuri.Project.ShoppingMall.member.data.entity.Member;
+import GaonNuri.Project.ShoppingMall.member.repository.MemberRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

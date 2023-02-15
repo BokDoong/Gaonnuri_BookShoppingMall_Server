@@ -1,6 +1,5 @@
 package GaonNuri.Project.ShoppingMall.item.service;
 
-import GaonNuri.Project.ShoppingMall.item.data.entity.Items;
 import GaonNuri.Project.ShoppingMall.item.repository.ItemsRepository;
 import GaonNuri.Project.ShoppingMall.item.service.inter.ItemService;
 import lombok.RequiredArgsConstructor;
@@ -21,6 +20,11 @@ public class ItemServiceImpl implements ItemService {
 
     private final ItemsRepository itemsRepository;
 
+    /**
+     * 상품 목록 조회 - 상세내용 제외
+     * @param page : 페이지
+     * @param size : 페이지당 나올 item 수
+     */
     @Override
     public Page<ItemsInfo> showItemsOnly(int page, int size) {
 
@@ -36,6 +40,11 @@ public class ItemServiceImpl implements ItemService {
         return itemsInfoPage;
     }
 
+    /**
+     * 상품 목록 조회 - 상세내용 포함
+     * @param page : 페이지
+     * @param size : 페이지당 나올 item 수
+     */
     @Override
     public Page<DetailItemsInfo> showItemsDetails(int page, int size) {
 
@@ -51,6 +60,10 @@ public class ItemServiceImpl implements ItemService {
         return detailItemsInfoPage;
     }
 
+    /**
+     * 상품 단건 조회
+     * @param id : 상품 Id
+     */
     @Override
     public DetailItemsInfo ItemsDetails(long id) {
 

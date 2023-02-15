@@ -1,6 +1,6 @@
 package GaonNuri.Project.ShoppingMall.jwt;
 
-import GaonNuri.Project.ShoppingMall.user.data.dto.TokenDto;
+import GaonNuri.Project.ShoppingMall.member.data.dto.TokenDto;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;

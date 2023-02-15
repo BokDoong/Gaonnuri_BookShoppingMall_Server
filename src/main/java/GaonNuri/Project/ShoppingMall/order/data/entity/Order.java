@@ -2,7 +2,7 @@ package GaonNuri.Project.ShoppingMall.order.data.entity;
 
 import GaonNuri.Project.ShoppingMall.config.entity.BaseTimeEntity;
 import GaonNuri.Project.ShoppingMall.order.data.enums.OrderStatus;
-import GaonNuri.Project.ShoppingMall.user.data.entity.Member;
+import GaonNuri.Project.ShoppingMall.member.data.entity.Member;
 import lombok.*;
 
 import javax.persistence.*;

@@ -6,7 +6,7 @@ import GaonNuri.Project.ShoppingMall.item.repository.ItemsRepository;
 import GaonNuri.Project.ShoppingMall.order.data.entity.Order;
 import GaonNuri.Project.ShoppingMall.order.data.entity.OrderItem;
 import GaonNuri.Project.ShoppingMall.order.repository.OrderRepository;
-import GaonNuri.Project.ShoppingMall.user.repository.AuthorityRepository;
+import GaonNuri.Project.ShoppingMall.member.repository.AuthorityRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

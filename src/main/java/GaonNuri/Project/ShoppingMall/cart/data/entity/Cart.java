@@ -1,6 +1,6 @@
 package GaonNuri.Project.ShoppingMall.cart.data.entity;
 
-import GaonNuri.Project.ShoppingMall.user.data.entity.Member;
+import GaonNuri.Project.ShoppingMall.member.data.entity.Member;
 import lombok.*;
 
 import javax.persistence.*;
