@@ -37,3 +37,5 @@ public class AuthController {
         return ResponseEntity.ok(authService.reissue(tokenRequestDto));
     }
 }
+
+//전역에러 처리 + 전역응답 처리

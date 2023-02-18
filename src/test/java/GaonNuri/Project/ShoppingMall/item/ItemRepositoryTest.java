@@ -44,6 +44,7 @@ public class ItemRepositoryTest {
                     .price(i*1000)
                     .itemDetail(String.valueOf(i) + "번째")
                     .itemStatus(ItemStatus.SOLD_OUT)
+                    .stockNumber(15)
                     .build();
             itemsRepository.save(items);
         }
@@ -53,6 +54,7 @@ public class ItemRepositoryTest {
                     .price(i*1000)
                     .itemDetail(String.valueOf(i) + "번째")
                     .itemStatus(ItemStatus.FOR_SALE)
+                    .stockNumber(20)
                     .build();
             itemsRepository.save(items);
         }

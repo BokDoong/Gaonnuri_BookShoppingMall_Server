@@ -45,4 +45,11 @@ public class AdminServiceImpl implements AdminService {
         itemsRepository.save(items);
     }
 
+    @Override
+    public void deleteItemsInfo(Long id) {
+
+        Items selectedItems = itemsRepository.getItemsById(id);
+        itemsRepository.delete(selectedItems);
+    }
+
 }

@@ -40,9 +40,11 @@ public class AuthService {
     public MemberResponseDto signup(MemberRequestDto memberRequestDto) {
         // 이메일 중복 회원 검증
         if (memberRepository.existsByEmail(memberRequestDto.getEmail())) {
+            //RuntimeException 이 아님
             throw new RuntimeException("이미 가입되어 있는 이메일입니다.");
         }
 
+        //member 에 Authority 추가 + 예외 타입 수정
         Authority authority = authorityRepository
                 .findByAuthorityStatus(AuthorityEnum.ROLE_USER).orElseThrow(()->new RuntimeException("권한 정보가 없습니다."));
 

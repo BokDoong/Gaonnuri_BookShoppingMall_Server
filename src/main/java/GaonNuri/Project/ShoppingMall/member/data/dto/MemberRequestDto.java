@@ -42,7 +42,7 @@ public class MemberRequestDto {
                 .name(name)
                 .phone(phone)
                 .address(address)
-                .authorities(authorities)
+                .authorities(authorities)   //기본값처리
                 .build();
     }
 

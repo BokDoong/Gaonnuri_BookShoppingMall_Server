@@ -10,6 +10,7 @@ import static GaonNuri.Project.ShoppingMall.admin.dto.ItemsRequestDto.ItemsUpdat
 
 @Entity
 @Getter
+@Setter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
@@ -32,9 +33,15 @@ public class Items extends BaseTimeEntity {
     @Column(nullable = false)
     private String itemDetail;
 
+    //재고
+    @Column(nullable = false)
+    private int stockNumber;
+
+    //판매상태
     @Enumerated(EnumType.STRING)
     private ItemStatus itemStatus;
 
+    //상품 수정 - 관리자
     public void updateItem(ItemsUpdateInfo dto){
         if(dto.getItemName()!=null)
             this.itemName = dto.getItemName();
@@ -46,4 +53,12 @@ public class Items extends BaseTimeEntity {
             this.itemStatus = dto.getItemStatus();
     }
 
+    //재고 증가
+//    public void addStock(int cancelStock) {
+//        if(this.itemStatus == ItemStatus.SOLD_OUT) {
+//            this.itemStatus = ItemStatus.FOR_SALE;
+//        }
+//
+//        this.stockNumber += cancelStock;
+//    }
 }

@@ -27,11 +27,14 @@ public class MemberService {
     /**
      * 내 정보 조회
      */
-    @Transactional(readOnly = true)
+    @Transactional
     public MemberResponseDto getMyInfo() {
-        return memberRepository.findById(SecurityUtil.getLoginMemberId())
+
+        MemberResponseDto result = memberRepository.findById(SecurityUtil.getLoginMemberId())
                 .map(MemberResponseDto::of)
                 .orElseThrow(() -> new RuntimeException("로그인 유저 정보가 없습니다."));
+
+        return result;
     }
 
     /**

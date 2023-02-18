@@ -15,4 +15,5 @@ public class TokenDto {
     private String accessToken;
     private String refreshToken;
     private Long accessTokenExpiresIn;
+    //타입, 만기시간 뺴기
 }

@@ -7,4 +7,6 @@ public interface AdminService {
     void updateItemsInfo(ItemsRequestDto.ItemsUpdateInfo dto);
 
     void registerItemsInfo(ItemsRequestDto.ItemsRegisterInfo dto);
+
+    void deleteItemsInfo(Long id);
 }

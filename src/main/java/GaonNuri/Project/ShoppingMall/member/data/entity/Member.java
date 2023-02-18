@@ -11,6 +11,8 @@ import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
+import static javax.persistence.FetchType.EAGER;
+
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
@@ -36,7 +38,7 @@ public class Member {
     @Column
     private String address;
 
-    @ManyToMany
+    @ManyToMany(fetch = EAGER)
     @JoinTable(
             name = "member_authority",
             joinColumns = {@JoinColumn(name="member_id",referencedColumnName = "member_id")},
