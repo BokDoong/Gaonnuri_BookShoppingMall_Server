@@ -2,10 +2,7 @@ package GaonNuri.Project.ShoppingMall.item.data.dto;
 
 import GaonNuri.Project.ShoppingMall.item.data.entity.Items;
 import GaonNuri.Project.ShoppingMall.item.data.enums.ItemStatus;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 public class ItemsResponseDto {
 
@@ -14,6 +11,7 @@ public class ItemsResponseDto {
     //상품 설명 포함
     @Data
     @Builder
+    @Setter
     @AllArgsConstructor
     @NoArgsConstructor
     public static class DetailItemsInfo{

@@ -1,11 +1,7 @@
 package GaonNuri.Project.ShoppingMall.admin.dto;
 
 import GaonNuri.Project.ShoppingMall.item.data.entity.Items;
-import GaonNuri.Project.ShoppingMall.item.data.enums.ItemStatus;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 public class ItemsRequestDto {
 
@@ -15,22 +11,13 @@ public class ItemsRequestDto {
     @AllArgsConstructor
     @NoArgsConstructor
     @Builder
+    @Getter
     public static class ItemsUpdateInfo{
         private long id;
         private String itemName;
         private int price;
         private String itemDetail;
-        private ItemStatus itemStatus;
-
-        public static ItemsUpdateInfo entityToDto(Items items) {
-            return ItemsUpdateInfo.builder()
-                    .id(items.getId())
-                    .itemName(items.getItemName())
-                    .price(items.getPrice())
-                    .itemDetail(items.getItemDetail())
-                    .itemStatus(items.getItemStatus())
-                    .build();
-        }
+        private int itemStatus;
 
     }
 

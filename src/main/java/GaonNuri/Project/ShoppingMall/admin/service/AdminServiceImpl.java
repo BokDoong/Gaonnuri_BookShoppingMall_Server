@@ -23,9 +23,10 @@ public class AdminServiceImpl implements AdminService {
     @Transactional
     @Override
     public void updateItemsInfo(ItemsUpdateInfo dto){
-        Items items = itemsRepository.getItemsById(dto.getId());
+        Items items = itemsRepository.findById(dto.getId()).orElseThrow(() -> new RuntimeException("상품 정보가 없습니다."));
 
         items.updateItem(dto);
+        itemsRepository.save(items);
     }
 
     /**

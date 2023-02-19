@@ -60,14 +60,18 @@ public class AdminController {
     public DetailItemsInfo updateItems(@RequestBody ItemsUpdateInfo dto) {
         adminServiceImpl.updateItemsInfo(dto);
 
-        DetailItemsInfo result = DetailItemsInfo.builder()
-                .itemName(dto.getItemName())
-                .price(dto.getPrice())
-                .itemDetail(dto.getItemDetail())
-                .itemStatus(dto.getItemStatus())
-                .build();
+        DetailItemsInfo detailItemsInfo = new DetailItemsInfo();
+        detailItemsInfo.setItemName(dto.getItemName());
+        detailItemsInfo.setPrice(dto.getPrice());
+        detailItemsInfo.setItemDetail(dto.getItemDetail());
 
-        return result;
+        if (dto.getItemStatus() == 0) {
+            detailItemsInfo.setItemStatus(ItemStatus.SOLD_OUT);
+        } else {
+            detailItemsInfo.setItemStatus(ItemStatus.FOR_SALE);
+        }
+
+        return detailItemsInfo;
     }
 
 

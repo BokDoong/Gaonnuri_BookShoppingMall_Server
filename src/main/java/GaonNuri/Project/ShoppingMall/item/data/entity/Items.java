@@ -46,6 +46,11 @@ public class Items extends BaseTimeEntity {
             this.itemName = dto.getItemName();
             this.price = dto.getPrice();
             this.itemDetail = dto.getItemDetail();
-            this.itemStatus = dto.getItemStatus();
+            if(dto.getItemStatus()==0) {
+                this.itemStatus = ItemStatus.SOLD_OUT;
+            }
+            else {
+                this.itemStatus = ItemStatus.FOR_SALE;
+            }
     }
 }
