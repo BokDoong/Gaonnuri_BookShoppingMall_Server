@@ -43,13 +43,9 @@ public class Items extends BaseTimeEntity {
 
     //상품 수정 - 관리자
     public void updateItem(ItemsUpdateInfo dto){
-        if(dto.getItemName()!=null)
             this.itemName = dto.getItemName();
-        if(dto.getPrice()>=0)
             this.price = dto.getPrice();
-        if(dto.getItemDetail()!=null)
             this.itemDetail = dto.getItemDetail();
-        if(dto.getItemStatus()!=null)
             this.itemStatus = dto.getItemStatus();
     }
 }

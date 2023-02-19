@@ -47,4 +47,5 @@ public class CartRepositoryTest {
                 .orElseThrow(EntityNotFoundException::new);
         Assertions.assertEquals(savedcart.getMember().getId(), member.getId());
     }
+
 }

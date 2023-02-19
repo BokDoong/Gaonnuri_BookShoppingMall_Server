@@ -33,6 +33,9 @@ public class OrderServiceImpl implements OrderService {
     private final MemberRepository memberRepository;
     private final OrderRepository orderRepository;
 
+    /**
+     * 주문하기
+     */
     @Override
     public Long order(OrderRequestDto orderRequestDto) {
 
@@ -83,7 +86,9 @@ public class OrderServiceImpl implements OrderService {
         }
     }
 
-
+    /**
+     * 사용자 - 주문내역
+     */
     @Override
     @Transactional(readOnly = true)
     public Page<OrderHistoryDto> getOrderList(Pageable pageable) {
@@ -117,6 +122,9 @@ public class OrderServiceImpl implements OrderService {
                 .orElseThrow(() -> new RuntimeException("로그인 유저 정보가 없습니다."));
     }
 
+    /**
+     * 관리자 - 주문내역 조회
+     */
     @Override
     @Transactional(readOnly = true)
     public Page<AdminOrderInfoDto> getAllOrderList(Pageable pageable) {
@@ -139,6 +147,9 @@ public class OrderServiceImpl implements OrderService {
         return new PageImpl<AdminOrderInfoDto>(adminOrderInfoDtos, pageable, totalCount);
     }
 
+    /**
+     * 주문취소
+     */
     @Override
     @Transactional
     public void cancelOrder(Long orderId) {

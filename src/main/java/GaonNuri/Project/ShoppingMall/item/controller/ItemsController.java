@@ -20,8 +20,8 @@ public class ItemsController {
 
     //상품 목록페이지
     @GetMapping()
-    public Page<ItemsInfo> getAllItems(@RequestParam("page") Integer page, @RequestParam("size") Integer size){
-        return itemService.showItemsOnly(page, size);
+    public Page<ItemsInfo> getAllItems(@RequestParam("page") Integer page){
+        return itemService.showItemsOnly(page, 10);
     }
 
     //상품 상세 페이지
