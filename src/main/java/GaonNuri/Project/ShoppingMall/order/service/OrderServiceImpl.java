@@ -113,7 +113,7 @@ public class OrderServiceImpl implements OrderService {
             orderHistoryDtos.add(orderHistoryDto);
         }
 
-        return new PageImpl<OrderHistoryDto>(orderHistoryDtos, pageable, totalCount);
+        return new PageImpl<>(orderHistoryDtos, pageable, totalCount);
     }
 
     private Member getMember() {
@@ -144,7 +144,7 @@ public class OrderServiceImpl implements OrderService {
             adminOrderInfoDtos.add(adminOrderInfoDto);
         }
 
-        return new PageImpl<AdminOrderInfoDto>(adminOrderInfoDtos, pageable, totalCount);
+        return new PageImpl<>(adminOrderInfoDtos, pageable, totalCount);
     }
 
     /**
@@ -174,4 +174,5 @@ public class OrderServiceImpl implements OrderService {
         order.setOrderStatus(OrderStatus.CANCEL);
         orderRepository.save(order);
     }
+
 }

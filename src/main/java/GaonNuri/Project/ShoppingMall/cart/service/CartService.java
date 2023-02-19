@@ -7,10 +7,15 @@ import GaonNuri.Project.ShoppingMall.cart.data.entity.CartItem;
 import GaonNuri.Project.ShoppingMall.cart.repository.CartItemRepository;
 import GaonNuri.Project.ShoppingMall.cart.repository.CartRepository;
 import GaonNuri.Project.ShoppingMall.item.data.entity.Items;
+import GaonNuri.Project.ShoppingMall.item.data.enums.ItemStatus;
 import GaonNuri.Project.ShoppingMall.item.repository.ItemsRepository;
 import GaonNuri.Project.ShoppingMall.member.data.entity.Member;
 import GaonNuri.Project.ShoppingMall.member.repository.MemberRepository;
 import GaonNuri.Project.ShoppingMall.member.utils.SecurityUtil;
+import GaonNuri.Project.ShoppingMall.order.data.dto.CartOrderDto;
+import GaonNuri.Project.ShoppingMall.order.data.dto.OrderRequestDto;
+import GaonNuri.Project.ShoppingMall.order.exception.OutOfStockException;
+import GaonNuri.Project.ShoppingMall.order.service.inter.OrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -30,6 +35,7 @@ public class CartService {
     private final CartItemRepository cartItemRepository;
     private final MemberRepository memberRepository;
     private final ItemsRepository itemsRepository;
+    private final OrderService orderService;
 
     /**
      * 장바구니 담기
@@ -49,6 +55,9 @@ public class CartService {
         //원래 담아뒀던 물품인지 조회
         Items items = itemsRepository.findById(cartRequestDto.getItemId()).orElseThrow(() -> new RuntimeException("상품 정보가 없습니다."));
         //SoldOut 인지
+        if (items.getItemStatus() == ItemStatus.SOLD_OUT) {
+            throw new OutOfStockException("품절된 상품입니다.");
+        }
 
         CartItem cartItem = cartItemRepository.findByCartIdAndItemsId(cart.getId(), items.getId());
 
@@ -114,4 +123,30 @@ public class CartService {
     public void deleteCartItem(Long cartItemId){
         cartItemRepository.deleteById(cartItemId);
     }
+
+    /**
+     * 장바구니 상품 주문
+     */
+    public void orderCartItem(List<CartOrderDto> cartOrderDtoList) {
+
+        List<OrderRequestDto> orderRequestDtoList = new ArrayList<>();
+
+        //cartItem -> OrderRequestDto 후 주문
+        for (CartOrderDto cartOrderDto : cartOrderDtoList) {
+            CartItem cartItem = cartItemRepository.findById(cartOrderDto.getCartItemId()).orElseThrow(() -> new RuntimeException("장바구니 물품 정보가 없습니다."));
+            OrderRequestDto orderRequestDto = new OrderRequestDto();
+            orderRequestDto.setItemId(cartItem.getItems().getId());
+            orderRequestDto.setCount(cartItem.getCount());
+
+            orderService.order(orderRequestDto);
+        }
+
+        //주문 끝난 장바구니 상품제거
+        for (CartOrderDto cartOrderDto : cartOrderDtoList) {
+            CartItem cartItem = cartItemRepository.findById(cartOrderDto.getCartItemId()).orElseThrow(() -> new RuntimeException("장바구니 물품이 없습니다."));
+            cartItemRepository.delete(cartItem);
+        }
+
+    }
+
 }

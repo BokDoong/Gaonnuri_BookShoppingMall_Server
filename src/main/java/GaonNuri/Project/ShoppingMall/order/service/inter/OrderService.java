@@ -15,4 +15,6 @@ public interface OrderService {
 
     void cancelOrder(Long orderId);
 
+//    Long cartOrder(List<OrderRequestDto> orderRequestDtoList);
+
 }
