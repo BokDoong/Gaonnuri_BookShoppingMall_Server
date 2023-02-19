@@ -65,15 +65,6 @@ public class Order extends BaseTimeEntity {
         return order;
     }
 
-    //주문 취소
-//    public void cancelOrder() {
-//
-//        this.setOrderStatus(OrderStatus.CANCEL);
-//        for (OrderItem orderItem : orderItems) {
-//            orderItem.cancel();
-//        }
-//    }
-
     //주문 가격
     public int getTotalPrice() {
         int totalPrice = 0;

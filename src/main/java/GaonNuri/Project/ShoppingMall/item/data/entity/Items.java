@@ -52,13 +52,4 @@ public class Items extends BaseTimeEntity {
         if(dto.getItemStatus()!=null)
             this.itemStatus = dto.getItemStatus();
     }
-
-    //재고 증가
-//    public void addStock(int cancelStock) {
-//        if(this.itemStatus == ItemStatus.SOLD_OUT) {
-//            this.itemStatus = ItemStatus.FOR_SALE;
-//        }
-//
-//        this.stockNumber += cancelStock;
-//    }
 }

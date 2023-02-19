@@ -17,13 +17,15 @@ public class OrderController {
     @PostMapping("/do")
     public ResponseEntity<String> orderItems(@RequestBody OrderRequestDto dto) {
 
+        orderService.order(dto);
+
         return new ResponseEntity<>("주문을 완료하였습니다.", HttpStatus.OK);
     }
 
-//    @PostMapping("/cancel")
-//    public ResponseEntity<String> cancelItems(@RequestParam("orderId") Long orderId) {
-//
-//        orderService.cancelOrder(orderId);
-//        return new ResponseEntity<>("취소가 완료되었습니다.", HttpStatus.OK);
-//    }
+    @PostMapping("/cancel")
+    public ResponseEntity<String> cancelItems(@RequestParam("orderId") Long orderId) {
+
+        orderService.cancelOrder(orderId);
+        return new ResponseEntity<>("취소가 완료되었습니다.", HttpStatus.OK);
+    }
 }

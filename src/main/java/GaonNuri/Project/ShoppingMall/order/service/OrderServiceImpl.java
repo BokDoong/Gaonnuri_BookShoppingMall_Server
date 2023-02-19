@@ -9,6 +9,7 @@ import GaonNuri.Project.ShoppingMall.member.utils.SecurityUtil;
 import GaonNuri.Project.ShoppingMall.order.data.dto.OrderRequestDto;
 import GaonNuri.Project.ShoppingMall.order.data.entity.Order;
 import GaonNuri.Project.ShoppingMall.order.data.entity.OrderItem;
+import GaonNuri.Project.ShoppingMall.order.data.enums.OrderStatus;
 import GaonNuri.Project.ShoppingMall.order.exception.OutOfStockException;
 import GaonNuri.Project.ShoppingMall.order.repository.OrderRepository;
 import GaonNuri.Project.ShoppingMall.order.service.inter.OrderService;
@@ -138,10 +139,28 @@ public class OrderServiceImpl implements OrderService {
         return new PageImpl<AdminOrderInfoDto>(adminOrderInfoDtos, pageable, totalCount);
     }
 
-//    @Override
-//    public void cancelOrder(Long orderId) {
-//        Order order = orderRepository.getById(orderId);
-//
-//        order.cancelOrder();
-//    }
+    @Override
+    @Transactional
+    public void cancelOrder(Long orderId) {
+        Order order = orderRepository.getById(orderId);
+
+        for(OrderItem orderItem : order.getOrderItems()){
+            Items items = orderItem.getItems();
+
+            //품절인지 체크
+            if (items.getItemStatus() == ItemStatus.SOLD_OUT) {
+                items.setItemStatus(ItemStatus.FOR_SALE);
+            }
+
+            //재고 증가
+            int nowStock = items.getStockNumber();
+            items.setStockNumber(nowStock + orderItem.getCount());
+
+            itemsRepository.save(items);
+        }
+
+        //주문취소 저장
+        order.setOrderStatus(OrderStatus.CANCEL);
+        orderRepository.save(order);
+    }
 }

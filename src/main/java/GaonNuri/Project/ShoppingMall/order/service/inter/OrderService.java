@@ -13,6 +13,6 @@ public interface OrderService {
 
     Page<OrderResponseDto.AdminOrderInfoDto> getAllOrderList(Pageable pageable);
 
-//    void cancelOrder(Long orderId);
+    void cancelOrder(Long orderId);
 
 }
