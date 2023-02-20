@@ -16,6 +16,7 @@ import static GaonNuri.Project.ShoppingMall.admin.dto.ItemsRequestDto.ItemsUpdat
 @NoArgsConstructor
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
+@Table(name = "items")
 public class Items extends BaseTimeEntity {
 
     @Id
@@ -40,6 +41,10 @@ public class Items extends BaseTimeEntity {
     //판매상태
     @Enumerated(EnumType.STRING)
     private ItemStatus itemStatus;
+
+    //이미지 url
+    @Column
+    private String imageUrl;
 
     //상품 수정 - 관리자
     public void updateItem(ItemsUpdateInfo dto){

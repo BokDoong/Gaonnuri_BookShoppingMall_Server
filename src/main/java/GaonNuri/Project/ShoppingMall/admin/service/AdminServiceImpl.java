@@ -1,12 +1,16 @@
 package GaonNuri.Project.ShoppingMall.admin.service;
 
 import GaonNuri.Project.ShoppingMall.admin.service.inter.AdminService;
+import GaonNuri.Project.ShoppingMall.config.s3.S3Uploader;
 import GaonNuri.Project.ShoppingMall.item.data.entity.Items;
 import GaonNuri.Project.ShoppingMall.item.data.enums.ItemStatus;
 import GaonNuri.Project.ShoppingMall.item.repository.ItemsRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
 
 import static GaonNuri.Project.ShoppingMall.admin.dto.ItemsRequestDto.ItemsRegisterInfo;
 import static GaonNuri.Project.ShoppingMall.admin.dto.ItemsRequestDto.ItemsUpdateInfo;
@@ -16,6 +20,7 @@ import static GaonNuri.Project.ShoppingMall.admin.dto.ItemsRequestDto.ItemsUpdat
 public class AdminServiceImpl implements AdminService {
 
     private final ItemsRepository itemsRepository;
+    private final S3Uploader s3Uploader;
 
     /**
      * 상품 수정
@@ -36,12 +41,24 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public void registerItemsInfo(ItemsRegisterInfo dto){
 
-        Items items = Items.builder()
-                .itemName(dto.getItemName())
-                .price(dto.getPrice())
-                .itemDetail(dto.getItemDetail())
-                .itemStatus(ItemStatus.FOR_SALE)
-                .build();
+        Items items = new Items();
+        items.setItemName(dto.getItemName());
+        items.setPrice(dto.getPrice());
+        items.setItemDetail(dto.getItemDetail());
+        items.setItemStatus(ItemStatus.FOR_SALE);
+
+        itemsRepository.save(items);
+    }
+
+    @Override
+    public void registerItemsImg(Long id, MultipartFile image) throws IOException {
+
+        Items items = itemsRepository.getItemsById(id);
+
+        if(!image.isEmpty()) {
+            String storedFileName = s3Uploader.upload(image,"images");
+            items.setImageUrl(storedFileName);
+        }
 
         itemsRepository.save(items);
     }

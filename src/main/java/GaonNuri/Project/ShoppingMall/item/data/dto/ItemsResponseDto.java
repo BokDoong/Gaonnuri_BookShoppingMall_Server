@@ -20,6 +20,7 @@ public class ItemsResponseDto {
         private int price;
         private String itemDetail;
         private ItemStatus itemStatus;
+        private String imageUrl;
 
         public static DetailItemsInfo entityToDTO(Items entity){
             return DetailItemsInfo.builder()
@@ -27,6 +28,7 @@ public class ItemsResponseDto {
                     .price(entity.getPrice())
                     .itemDetail(entity.getItemDetail())
                     .itemStatus(entity.getItemStatus())
+                    .imageUrl(entity.getImageUrl())
                     .build();
         }
     }

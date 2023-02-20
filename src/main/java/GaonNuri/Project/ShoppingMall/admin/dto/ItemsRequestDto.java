@@ -18,7 +18,6 @@ public class ItemsRequestDto {
         private int price;
         private String itemDetail;
         private int itemStatus;
-
     }
 
     @Data

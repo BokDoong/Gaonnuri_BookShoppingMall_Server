@@ -11,6 +11,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import static GaonNuri.Project.ShoppingMall.admin.dto.ItemsRequestDto.ItemsRegisterInfo;
 import static GaonNuri.Project.ShoppingMall.admin.dto.ItemsRequestDto.ItemsUpdateInfo;
@@ -49,10 +50,25 @@ public class AdminController {
                 .itemName(dto.getItemName())
                 .price(dto.getPrice())
                 .itemDetail(dto.getItemDetail())
+                .imageUrl(null)
                 .itemStatus(ItemStatus.FOR_SALE)
                 .build();
 
         return result;
+    }
+
+    //상품 이미지 등록
+    @PostMapping("/registerImg")
+    public ResponseEntity<String> registerItemsImg(@RequestPart(value = "id") Long id,
+                                            @RequestPart(value = "file")MultipartFile file){
+
+        try {
+            adminServiceImpl.registerItemsImg(id, file);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
+        return ResponseEntity.status(HttpStatus.OK).body("정상적으로 사진이 등록되었씁니다.");
     }
 
     //상품 정보 수정
