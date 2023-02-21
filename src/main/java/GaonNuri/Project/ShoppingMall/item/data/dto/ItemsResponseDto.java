@@ -20,6 +20,7 @@ public class ItemsResponseDto {
         private int price;
         private String itemDetail;
         private ItemStatus itemStatus;
+        private int stockNumber;
         private String imageUrl;
 
         public static DetailItemsInfo entityToDTO(Items entity){
@@ -28,6 +29,7 @@ public class ItemsResponseDto {
                     .price(entity.getPrice())
                     .itemDetail(entity.getItemDetail())
                     .itemStatus(entity.getItemStatus())
+                    .stockNumber(entity.getStockNumber())
                     .imageUrl(entity.getImageUrl())
                     .build();
         }
@@ -44,12 +46,14 @@ public class ItemsResponseDto {
         private String itemName;
         private int price;
         private ItemStatus itemStatus;
+        private String imageUrl;
 
         public static ItemsInfo entityToDTO(Items entity) {
             return ItemsInfo.builder()
                     .itemName(entity.getItemName())
                     .price(entity.getPrice())
                     .itemStatus(entity.getItemStatus())
+                    .imageUrl(entity.getImageUrl())
                     .build();
         }
 

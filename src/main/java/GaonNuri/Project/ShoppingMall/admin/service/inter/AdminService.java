@@ -5,13 +5,13 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 
+import static GaonNuri.Project.ShoppingMall.item.data.dto.ItemsResponseDto.DetailItemsInfo;
+
 public interface AdminService {
 
-    void updateItemsInfo(ItemsRequestDto.ItemsUpdateInfo dto);
+    DetailItemsInfo updateItemsInfo(ItemsRequestDto.ItemsUpdateInfo dto, MultipartFile image) throws Exception;
 
-    void registerItemsInfo(ItemsRequestDto.ItemsRegisterInfo dto);
-
-    void registerItemsImg(Long id, MultipartFile image) throws IOException;
+    DetailItemsInfo registerItemsInfo(ItemsRequestDto.ItemsRegisterInfo dto, MultipartFile image) throws IOException;
 
     void deleteItemsInfo(Long id);
 }

@@ -1,6 +1,5 @@
 package GaonNuri.Project.ShoppingMall.admin.dto;
 
-import GaonNuri.Project.ShoppingMall.item.data.entity.Items;
 import lombok.*;
 
 public class ItemsRequestDto {
@@ -17,6 +16,7 @@ public class ItemsRequestDto {
         private String itemName;
         private int price;
         private String itemDetail;
+        private int stockNumber;
         private int itemStatus;
     }
 
@@ -27,15 +27,7 @@ public class ItemsRequestDto {
     public static class ItemsRegisterInfo{
         private String itemName;
         private int price;
+        private int stockNumber;
         private String itemDetail;
-
-        public static ItemsRegisterInfo entityToDto(Items items) {
-            return ItemsRegisterInfo.builder()
-                    .itemName(items.getItemName())
-                    .price(items.getPrice())
-                    .itemDetail(items.getItemDetail())
-                    .build();
-        }
-
     }
 }

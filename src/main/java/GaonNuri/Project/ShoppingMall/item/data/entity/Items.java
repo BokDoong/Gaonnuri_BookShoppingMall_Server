@@ -6,8 +6,6 @@ import lombok.*;
 
 import javax.persistence.*;
 
-import static GaonNuri.Project.ShoppingMall.admin.dto.ItemsRequestDto.ItemsUpdateInfo;
-
 @Entity
 @Getter
 @Setter
@@ -16,7 +14,7 @@ import static GaonNuri.Project.ShoppingMall.admin.dto.ItemsRequestDto.ItemsUpdat
 @NoArgsConstructor
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
-@Table(name = "items")
+@Table(name="products")
 public class Items extends BaseTimeEntity {
 
     @Id
@@ -45,17 +43,4 @@ public class Items extends BaseTimeEntity {
     //이미지 url
     @Column
     private String imageUrl;
-
-    //상품 수정 - 관리자
-    public void updateItem(ItemsUpdateInfo dto){
-            this.itemName = dto.getItemName();
-            this.price = dto.getPrice();
-            this.itemDetail = dto.getItemDetail();
-            if(dto.getItemStatus()==0) {
-                this.itemStatus = ItemStatus.SOLD_OUT;
-            }
-            else {
-                this.itemStatus = ItemStatus.FOR_SALE;
-            }
-    }
 }

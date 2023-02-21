@@ -1,7 +1,6 @@
 package GaonNuri.Project.ShoppingMall.admin.controller;
 
 import GaonNuri.Project.ShoppingMall.admin.service.AdminServiceImpl;
-import GaonNuri.Project.ShoppingMall.item.data.enums.ItemStatus;
 import GaonNuri.Project.ShoppingMall.item.service.inter.ItemService;
 import GaonNuri.Project.ShoppingMall.order.service.inter.OrderService;
 import lombok.RequiredArgsConstructor;
@@ -43,54 +42,24 @@ public class AdminController {
 
     //상품 등록
     @PostMapping("/register")
-    public DetailItemsInfo registerItems(@RequestBody ItemsRegisterInfo dto) {
-        adminServiceImpl.registerItemsInfo(dto);
-
-        DetailItemsInfo result = DetailItemsInfo.builder()
-                .itemName(dto.getItemName())
-                .price(dto.getPrice())
-                .itemDetail(dto.getItemDetail())
-                .imageUrl(null)
-                .itemStatus(ItemStatus.FOR_SALE)
-                .build();
-
-        return result;
-    }
-
-    //상품 이미지 등록
-    @PostMapping("/registerImg")
-    public ResponseEntity<String> registerItemsImg(@RequestPart(value = "id") Long id,
-                                            @RequestPart(value = "file")MultipartFile file){
-
+    public DetailItemsInfo registerItems(@RequestPart(value = "dto") ItemsRegisterInfo dto,
+                                         @RequestPart(value = "file") MultipartFile file) {
         try {
-            adminServiceImpl.registerItemsImg(id, file);
+            return adminServiceImpl.registerItemsInfo(dto, file);
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            return null;
         }
-
-        return ResponseEntity.status(HttpStatus.OK).body("정상적으로 사진이 등록되었씁니다.");
     }
 
     //상품 정보 수정
     @PutMapping(value = "/update")
-    public DetailItemsInfo updateItems(@RequestBody ItemsUpdateInfo dto) {
-        adminServiceImpl.updateItemsInfo(dto);
+    public DetailItemsInfo updateItems(@RequestPart(value = "dto") ItemsUpdateInfo dto,
+                                       @RequestPart(value = "file") MultipartFile file) throws Exception {
 
-        DetailItemsInfo detailItemsInfo = new DetailItemsInfo();
-        detailItemsInfo.setItemName(dto.getItemName());
-        detailItemsInfo.setPrice(dto.getPrice());
-        detailItemsInfo.setItemDetail(dto.getItemDetail());
-
-        if (dto.getItemStatus() == 0) {
-            detailItemsInfo.setItemStatus(ItemStatus.SOLD_OUT);
-        } else {
-            detailItemsInfo.setItemStatus(ItemStatus.FOR_SALE);
-        }
+        DetailItemsInfo detailItemsInfo = adminServiceImpl.updateItemsInfo(dto, file);
 
         return detailItemsInfo;
     }
-
-
 
     //상품 삭제
     @DeleteMapping("/delete")

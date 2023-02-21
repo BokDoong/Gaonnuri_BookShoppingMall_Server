@@ -79,7 +79,7 @@ public class CartService {
     @Transactional(readOnly = true)
     public Page<CartResponseDto> getCartList(int page) {
 
-        List<CartResponseDto> cartResponseDtoList = new ArrayList<>();
+        List<CartResponseDto> cartResponseDtoList;
 
         //장바구니
         Member member = getMember();
@@ -113,7 +113,7 @@ public class CartService {
 
         cartItem.updateCount(count);
 
-        CartResponseDto result = new CartResponseDto(cartItem.getId(), cartItem.getItems().getItemName(), cartItem.getItems().getPrice(), cartItem.getCount());
+        CartResponseDto result = new CartResponseDto(cartItem.getId(), cartItem.getItems().getItemName(), cartItem.getItems().getPrice(), cartItem.getCount(), cartItem.getItems().getImageUrl());
         return result;
     }
 

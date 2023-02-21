@@ -26,11 +26,13 @@ public class OrderResponseDto {
             this.itemName = orderItem.getItems().getItemName();
             this.count = orderItem.getCount();
             this.itemPrice = orderItem.getOrderPrice();
+            this.imageUrl = orderItem.getItems().getImageUrl();
         }
 
         private String itemName;
         private int count;
         private int itemPrice;
+        private String imageUrl;
     }
 
     //주문내역

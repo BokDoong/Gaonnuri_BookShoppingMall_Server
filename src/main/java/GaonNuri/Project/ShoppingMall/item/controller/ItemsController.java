@@ -1,6 +1,5 @@
 package GaonNuri.Project.ShoppingMall.item.controller;
 
-import GaonNuri.Project.ShoppingMall.item.data.dto.ItemsResponseDto;
 import GaonNuri.Project.ShoppingMall.item.service.inter.ItemService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -9,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import static GaonNuri.Project.ShoppingMall.item.data.dto.ItemsResponseDto.DetailItemsInfo;
 import static GaonNuri.Project.ShoppingMall.item.data.dto.ItemsResponseDto.ItemsInfo;
 
 @RestController
@@ -26,7 +26,7 @@ public class ItemsController {
 
     //상품 상세 페이지
     @GetMapping(value = "/detail")
-    public ItemsResponseDto.DetailItemsInfo getDetailOfItems(@RequestParam long id) {
+    public DetailItemsInfo getDetailOfItems(@RequestParam long id) {
         return itemService.ItemsDetails(id);
     }
 }
