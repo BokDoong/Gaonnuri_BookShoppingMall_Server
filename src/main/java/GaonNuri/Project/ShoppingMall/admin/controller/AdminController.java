@@ -80,4 +80,15 @@ public class AdminController {
 
         return result;
     }
+
+    //주문상태 변경
+    @PutMapping("/orders")
+    public AdminOrderInfoDto updateOrderStatus(@RequestParam("id") Long id, @RequestParam("status") Integer status) throws Exception {
+
+        try {
+            return orderService.updateOrderStatus(id, status);
+        } catch (Exception e) {
+            throw new Exception();
+        }
+    }
 }

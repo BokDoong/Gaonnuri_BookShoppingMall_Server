@@ -59,7 +59,7 @@ public class Order extends BaseTimeEntity {
             order.addOrderItem(orderItem);
         }
         order.setOrderPrice(order.getTotalPrice());
-        order.setOrderStatus(OrderStatus.ORDER);
+        order.setOrderStatus(OrderStatus.WAITING);
         order.setOrderDate(LocalDateTime.now());
 
         return order;

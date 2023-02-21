@@ -22,6 +22,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static GaonNuri.Project.ShoppingMall.order.data.dto.OrderResponseDto.*;
 
@@ -175,4 +176,38 @@ public class OrderServiceImpl implements OrderService {
         orderRepository.save(order);
     }
 
+    /**
+     * 주문 상태 수정
+     */
+    @Override
+    public AdminOrderInfoDto updateOrderStatus(long id, int orderStatus) throws Exception {
+
+        Optional<Order> selectedOrder = orderRepository.findById(id);
+
+        if (selectedOrder.isPresent()) {
+            Order order = selectedOrder.get();
+
+            //상태변경
+            updateStatus(orderStatus, order);
+            orderRepository.save(order);
+
+            //return
+            String name = order.getMember().getName();
+
+            return new AdminOrderInfoDto(order, name);
+
+        } else {
+            throw new Exception();
+        }
+    }
+
+    private static void updateStatus(int orderStatus, Order order) {
+        if (orderStatus == 2) {
+            order.setOrderStatus(OrderStatus.ORDER);
+        } else if (orderStatus == 1) {
+            order.setOrderStatus(OrderStatus.WAITING);
+        } else if (orderStatus == 0) {
+            order.setOrderStatus(OrderStatus.CANCEL);
+        }
+    }
 }
