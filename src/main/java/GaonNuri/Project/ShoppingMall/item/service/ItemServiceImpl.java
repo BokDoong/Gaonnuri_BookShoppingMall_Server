@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -28,7 +29,7 @@ public class ItemServiceImpl implements ItemService {
     @Override
     public Page<ItemsInfo> showItemsOnly(int page, int size) {
 
-        List<ItemsInfo> itemsInfos = itemsRepository.findAll().stream().map(ItemsInfo::entityToDTO)
+        List<ItemsInfo> itemsInfos = itemsRepository.findAll(Sort.by(Sort.Order.asc("itemStatus"))).stream().map(ItemsInfo::entityToDTO)
                 .collect(Collectors.toList());
 
         PageRequest pageRequest = PageRequest.of(page, size);
