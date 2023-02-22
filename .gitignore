@@ -43,5 +43,4 @@ out/
 *.iml
 out
 gen
-.gradle
-build
+/Users/ijin/Study/쇼핑몰_협업프로젝트/ShoppingMall/src/main/resources/application.properties
