@@ -16,6 +16,7 @@ public class ItemsResponseDto {
     @NoArgsConstructor
     public static class DetailItemsInfo{
 
+        private Long id;
         private String itemName;
         private int price;
         private String itemDetail;
@@ -25,6 +26,7 @@ public class ItemsResponseDto {
 
         public static DetailItemsInfo entityToDTO(Items entity){
             return DetailItemsInfo.builder()
+                    .id(entity.getId())
                     .itemName(entity.getItemName())
                     .price(entity.getPrice())
                     .itemDetail(entity.getItemDetail())
@@ -43,6 +45,7 @@ public class ItemsResponseDto {
     @NoArgsConstructor
     public static class ItemsInfo {
 
+        private Long id;
         private String itemName;
         private int price;
         private ItemStatus itemStatus;
@@ -50,6 +53,7 @@ public class ItemsResponseDto {
 
         public static ItemsInfo entityToDTO(Items entity) {
             return ItemsInfo.builder()
+                    .id(entity.getId())
                     .itemName(entity.getItemName())
                     .price(entity.getPrice())
                     .itemStatus(entity.getItemStatus())

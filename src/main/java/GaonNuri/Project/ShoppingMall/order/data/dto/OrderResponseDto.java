@@ -3,10 +3,7 @@ package GaonNuri.Project.ShoppingMall.order.data.dto;
 import GaonNuri.Project.ShoppingMall.order.data.entity.Order;
 import GaonNuri.Project.ShoppingMall.order.data.entity.OrderItem;
 import GaonNuri.Project.ShoppingMall.order.data.enums.OrderStatus;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -37,7 +34,6 @@ public class OrderResponseDto {
 
     //주문내역
     @Data
-    @Builder
     @AllArgsConstructor
     @NoArgsConstructor
     public static class OrderHistoryDto{
@@ -66,12 +62,14 @@ public class OrderResponseDto {
     public static class AdminOrderInfoDto{
 
         public AdminOrderInfoDto(Order order, String userName){
+            this.id = order.getId();
             this.userName = userName;
             this.orderDate = order.getOrderDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
             this.orderStatus = order.getOrderStatus();
             this.orderPrice = order.getOrderPrice();
         }
 
+        private Long id;
         private String userName;
         private OrderStatus orderStatus;
         private int orderPrice;
