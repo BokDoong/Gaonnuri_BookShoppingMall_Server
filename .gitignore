@@ -45,7 +45,4 @@ out
 gen
 .gradle
 build
-*.properties
-*.env
-Dockerfile
-docker-resources
+/Users/ijin/Study/쇼핑몰_협업프로젝트/ShoppingMall/src/main/resources/application.properties
