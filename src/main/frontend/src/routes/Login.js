@@ -27,7 +27,10 @@ const Login = () =>{
         .then((res)=>{
             dispatch(login_success(res.data));
             alert("로그인 되었습니다.");
-            navigate("/");
+            if(res.data.authority.authorityStatus==="ROLE_ADMIN"){
+                navigate("/admin");
+            }
+            else navigate("/");
         })
         .catch((err)=>{
             alert("로그인에 실패했습니다");

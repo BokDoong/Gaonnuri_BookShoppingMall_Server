@@ -2,55 +2,7 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom/dist";
 
-const ShopPaging = ({page,category}) => {
-    const navigate = useNavigate();
-
-    const rendering = () => {
-        let start;
-        let end;
-        if(page%5==0){
-            start = page-4;
-            end = page/1;
-        }
-        else {
-            start = page-page%5+1;
-            end = start+4;
-        }
-        const backUrl=`/category/${category}/${start-5}`;
-        let result = []; 
-        if(start>5){
-            result.push(<a href={backUrl}>&lt;</a>);
-        }
-        for (let i = start; i <= end; i++) {
-            const url = `/category/${category}/${i}`;
-            if(i>0){
-                if(i===page){
-                    result.push(<a href={url}>{i}</a>);    
-                }
-                else {
-                    result.push(<a href={url}>{i}</a>);   
-                }
-            }
-        }
-        const frontUrl=`/category/${category}/${end+1}`;
-        result.push(<a href={frontUrl}>&gt;</a>);
-        return result;
-    };
-
-    return (
-        <div className="numNav">
-            {
-                rendering()
-            }
-           
-        </div>
-    )
-}
-
-export {ShopPaging};
-
-
-const CartPaging = ({page}) => {
+const ManagePaging = ({page}) => {
 
     const rendering = () => {
         let start;
@@ -63,18 +15,18 @@ const CartPaging = ({page}) => {
             start = page-page%5+1;
             end = start+4;
         }
-        const backUrl=`/cart/${start-5}`;
+        const backUrl=`/admin/product/${start-5}`;
         let result = []; 
         if(start>5){
             result.push(<a href={backUrl}>&lt;</a>);
         }
         for (let i = start; i <= end; i++) {
-            const url = `/cart/${i}`;
+            const url = `/admin/product/${i}`;
             if(i>0){
                 result.push(<a href={url}>{i}</a>);   
             }
         }
-        const frontUrl=`/cart/${end+1}`;
+        const frontUrl=`/admin/product/${end+1}`;
         result.push(<a href={frontUrl}>&gt;</a>);
         console.log(result);
         return result;
@@ -90,12 +42,9 @@ const CartPaging = ({page}) => {
     )
 }
 
-export {CartPaging};
+export {ManagePaging};
 
-
-
-const MyOrderPaging = ({page}) => {
-
+const OrderPaging = ({page}) => {
     const rendering = () => {
         let start;
         let end;
@@ -107,18 +56,18 @@ const MyOrderPaging = ({page}) => {
             start = page-page%5+1;
             end = start+4;
         }
-        const backUrl=`/mypage/order/${start-5}`;
+        const backUrl=`/admin/order/${start-5}`;
         let result = []; 
         if(start>5){
             result.push(<a href={backUrl}>&lt;</a>);
         }
         for (let i = start; i <= end; i++) {
-            const url = `/mypage/order/${i}`;
+            const url = `/admin/order/${i}`;
             if(i>0){
                 result.push(<a href={url}>{i}</a>);   
             }
         }
-        const frontUrl=`/mypage/order/${end+1}`;
+        const frontUrl=`/admin/order/${end+1}`;
         result.push(<a href={frontUrl}>&gt;</a>);
         console.log(result);
         return result;
@@ -134,4 +83,4 @@ const MyOrderPaging = ({page}) => {
     )
 }
 
-export {MyOrderPaging};
+export {OrderPaging};

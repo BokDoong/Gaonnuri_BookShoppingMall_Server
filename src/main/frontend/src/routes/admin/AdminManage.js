@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom/dist";
 import { Axios } from "../../CustomAxios";
 import AdminMenu from "./AdminMenu";
 import AdminProduct from "./AdminProduct";
-import ManagePaging from "./ManagePaging";
+import {ManagePaging} from "./AdminPaging";
 
 const AdminManage = () => {
   const {id} = useParams();

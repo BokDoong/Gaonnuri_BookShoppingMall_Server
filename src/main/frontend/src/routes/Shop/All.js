@@ -2,14 +2,12 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { Axios } from '../../CustomAxios';
-import Paging from '../paging';
-import ShopPaging from './ShopPaging';
+import { ShopPaging } from '../Paging';
 
 const All = () =>{
     const {id} = useParams();
     const [data,setData] = useState([]);
     
-
     useEffect(()=>{
         getProduct();
     },[])

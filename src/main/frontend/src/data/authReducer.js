@@ -1,14 +1,14 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initUser = {
-  userId: -1,
+  userId: -1, 
   userEmail: "",
   role: "",
 };
 
 //초기 상태
 const initialState = {
-  isLoggedIn: true,
+  isLoggedIn: false,
   info: initUser,
 };
 

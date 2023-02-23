@@ -50,7 +50,7 @@ const ProductReg = () =>{
             "itemDetail":detail,
             "price": price,
             "stockNumber": stock,
-            "imageUrl":image,
+            "imageUrl":image
         }
         //await Axios.post(uri,data)
         await axios.post(uri,data)

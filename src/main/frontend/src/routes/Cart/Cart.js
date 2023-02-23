@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { Axios } from "../../CustomAxios";
+import { CartPaging } from "../Paging";
 import CartItem from "./CartItem";
 
 const Cart = () =>{
@@ -89,6 +90,7 @@ const Cart = () =>{
                     )
                     
                 })}
+                <CartPaging page={id}/>
             </div>
             <div className="cart_order">
                 <button onClick={onOrderClick}className="cart_order_btn">주문하기</button>

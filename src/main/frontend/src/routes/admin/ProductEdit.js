@@ -7,24 +7,26 @@ import AdminMenu from "./AdminMenu";
 const ProductEdit = () =>{
     const {id} = useParams();
     useEffect(()=>{
-        const uri = `http://localhost:3001/product/${id}`;
-        axios.get(uri)
+        const uri = `/api/v1/admin/detail?id=${id}`;
+        Axios.get(uri)
             .then((res)=>{
                 return res.data;
             })
-            .then((data)=>{
+            .then((data)=>{ 
                 setName(data.itemName);
                 setPrice(data.price);
                 setDetail(data.itemDetail);
                 setStock(data.stockNumber);
                 setStatus(data.status);
+                setImage(data.imageUrl);
             }) 
     },[])
     const [name,setName] = useState("");
     const [price,setPrice] = useState();
     const [detail,setDetail] = useState("");
     const [stock, setStock] = useState();
-    const [status,setStatus] = useState("판매 중");
+    const [status,setStatus] = useState("FOR_SALE");
+    const [image,setImage] = useState();
     const navigate = useNavigate();
 
     const priceCheck = () => {
@@ -51,6 +53,7 @@ const ProductEdit = () =>{
             "itemDetail":detail,
             "price": price,
             "stockNumber": stock,
+            "imageUrl":image
         }
         console.log(data);
         await Axios.put(uri,data)
@@ -59,6 +62,18 @@ const ProductEdit = () =>{
         )
         .catch();
         
+    }
+    const onImageHandler = (event) => {
+        let formData = new FormData();
+        console.log(event.target);
+        formData.append("file",event.target.files[0]);
+        for (var key of formData.keys()) {
+            console.log(key);
+          } 
+          for (var value of formData.values()) {
+            console.log(value);
+          }
+        setImage(formData);   
     }
     return (
         <>
@@ -95,7 +110,7 @@ const ProductEdit = () =>{
                         
                         <tr>
                             <td>상품 이미지</td>
-                            <td><input type="file"/></td>
+                            <td><input  onChange={onImageHandler} type="file"/></td>
                         </tr>
                     </table>
                     <div className="product_register_btns">

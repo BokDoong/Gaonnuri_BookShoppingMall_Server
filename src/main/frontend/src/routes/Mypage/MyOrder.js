@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import Order from "./Order";
 import MypageBar from "./MypageBar";
 import { useParams } from "react-router-dom";
+import { MyOrderPaging } from "../Paging";
 
 const MyOrder = () =>{
     const {id} = useParams();
@@ -38,6 +39,7 @@ const MyOrder = () =>{
                     )
                     
                 })}
+                <MyOrderPaging page={id}/>
             </div>
         </div>
         </div>

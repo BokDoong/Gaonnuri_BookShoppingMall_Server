@@ -40,7 +40,7 @@ const AdminOrder = ({data,getData,checkedItemHandler}) => {
                     {data.orderDate}
                 </div>
             </div>
-            <div className="cart_table_cell_price">{data.orderPrice}원</div>
+            <div className="cart_table_cell_price">{data.orderPrice}</div>
             <div className="order_table_cell_status">{data.orderStatus}</div>
             <div className="admin_order_table_choice">
                 <button className="order_table_btn"onClick={onConfirmClick}>입금확인</button>
