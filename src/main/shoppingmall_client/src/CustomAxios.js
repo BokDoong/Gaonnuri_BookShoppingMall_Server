@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const Axios = axios.create({
-  baseURL: "http://localhost:3001",
+  baseURL: "http://localhost:8080",
   headers: {
     "Content-Type": "application/json",
   },
@@ -26,7 +26,7 @@ Axios.interceptors.response.use(
     //1.refresh 요청자체의 에러인 경우
     //2.500 에러(토큰만료)가 아닌 경우
     //3. refresh하고 다시 요청을 보냈는데 에러인 경우
-    if (config.url === "http://localhost:3001/api/auth/v1/reissue" || status !== 500 || config.sent) {
+    if (config.url === "http://localhost:8080/api/auth/v1/reissue" || status !== 500 || config.sent) {
       return Promise.reject(error);
   }
 
@@ -42,17 +42,21 @@ Axios.interceptors.response.use(
 );
 
 const getRefreshToken = async() => {
-  const refreshToken = sessionStorage.getItem("refreshToken");
-  await Axios.post("/api/auth/v1/reissue",refreshToken)
+  const refreshToken = localStorage.getItem("refreshToken");
+  const accessToken = localStorage.getItem("accessToken");
+  const data = {accessToken:accessToken,refreshToken:refreshToken}
+  await Axios.post("/api/auth/v1/reissue",data)
     .then((res) => {
+      console.log(res);
       const response = res.data;
       const newAccessToken = response.accessToken;
       localStorage.removeItem("accessToken");
       localStorage.setItem("accessToken", newAccessToken);
     })
     .catch((e) => {
+      alert("로그아웃되었습니다");
       console.log("Token Reissue Fail : " + e);
       localStorage.removeItem('accessToken');
-      sessionStorage.removeItem('refreshToken');
+      localStorage.removeItem('refreshToken');
     });
 }

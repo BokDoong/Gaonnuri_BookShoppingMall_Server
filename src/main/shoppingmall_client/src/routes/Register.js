@@ -83,7 +83,7 @@ const Register = () =>{
 
   //입력된 정보  POST
   const requestReg = (data) =>{
-    const uri = "/member_new";
+    const uri = "/api/v1/auth/join";
     Axios.post(uri, data).then(response => response.data)
     .then((res) => {
       console.log(res);
@@ -91,15 +91,8 @@ const Register = () =>{
       navigate("/");
     })
     .catch((err)=>{
-      if(err.status === 500) {
-        alert("이미 가입된 이메일입니다");
-      }
-      else if(err.status === 400) {
-        alert("회원정보를 입력하세요");
-      }
-      else {
-        alert("회원가입에 실패했습니다");
-      }
+     console.log(err.response);
+     alert("회원가입에 실패했습니다");
     });
   }
   //회원가입 클릭

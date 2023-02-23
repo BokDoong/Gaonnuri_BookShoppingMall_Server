@@ -8,7 +8,7 @@ const initUser = {
 
 //초기 상태
 const initialState = {
-  isLoggedIn: true,
+  isLoggedIn: false,
   info: initUser,
 };
 
@@ -18,16 +18,16 @@ const authReducer = createSlice({
   reducers: {
     login_success: (state, action) => {
       state.isLoggedIn = true;
-      state.info = action.payload.user;
+      //state.info = action.payload.user;
       //state에 관련한 것만
       localStorage.setItem("accessToken",action.payload.accessToken);
-      sessionStorage.setItem("refreshToken",action.payload.refreshToken); //쿠키나 세션스토리지로 이동
+      localStorage.setItem("refreshToken",action.payload.refreshToken); //쿠키나 세션스토리지로 이동
     },
     remove_userInfo: (state) => {
       state.isLoggedIn = false;
       state.info = initUser;
       localStorage.removeItem("accessToken");
-      sessionStorage.removeItem("refreshToken");
+      localStorage.removeItem("refreshToken");
     },
   },
 });
