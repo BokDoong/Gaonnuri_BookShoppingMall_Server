@@ -21,10 +21,8 @@ const Info = () => {
     //개인정보 GET
     const getInfo =async() =>{
         const userId = user.info.userId;
-        //const uri = "/api/v1/member/me";
-        //await Axios.get(`${uri}/${userId}`)
-        const uri = "http://localhost:3001/api_v1_member_me";
-        axios.get(uri)
+        const uri = "/api/v1/member/me";
+        await Axios.get(`${uri}/${userId}`)
         .then((response)=>response.data)
         .then((data)=>{
             if(data.phone){
@@ -87,17 +85,18 @@ const Info = () => {
            else{
                 putData = {
                     "address": data.address,
-                    "email": data.email,
                     "name": data.name,
                     "password": newPW1,
                     "phone":`${a}-${b}-${c}`,
                 }
             }
-            //const uri = "/api/v1/member/update";
-            //Axios.put(uri,putData);
-            const uri = "http://localhost:3001/api_v1_member_update";
-            axios.put(uri,putData);
-            window.location.reload();
+            const uri = "/api/v1/member/update";
+            Axios.put(uri,putData)
+            .then(window.location.reload())
+            .catch((err)=>{
+                alert("정확한 정보를 입력하세요");
+            })
+            
         }
     }
     return (

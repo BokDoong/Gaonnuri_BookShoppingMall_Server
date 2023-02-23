@@ -2,14 +2,17 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import Order from "./Order";
 import MypageBar from "./MypageBar";
+import { useParams } from "react-router-dom";
 
 const MyOrder = () =>{
+    const {id} = useParams();
+    const [loading,setLoading] = useState(false);
     const [data,setData] = useState([]);
     const [list,setList] = useState(new Set());
     const getData = () =>{
-        const uri = "http://localhost:3001/member_cart";
+        const uri = `api/v1/member/order?page=${id-1}`;
         axios.get(uri)
-        .then((res)=>{setData(res.data);console.log(res)});
+        .then((res)=>{setData(res.data.content);setLoading(true);console.log(res)});
     }
     useEffect(()=>{
         getData();
@@ -29,7 +32,7 @@ const MyOrder = () =>{
                     <div style={{width: "15%"}}className="cart_table_top_cell">진행상태</div>
                     <div style={{width: "15%"}}className="cart_table_top_cell"></div>
                 </div>
-                {data.map((data)=>{
+                {!loading?<></>:data.map((data)=>{
                     return(
                         <Order data={data} getData={getData}/>
                     )

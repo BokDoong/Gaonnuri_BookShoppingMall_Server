@@ -22,10 +22,9 @@ const Login = () =>{
         }
         
         //아이디 및 비밀번호 POST
-        const data = {email:ID,password:PW};
+        const data = {email:ID,password:PW};;
         Axios.post("/api/v1/auth/login",data)
         .then((res)=>{
-            console.log(res);
             dispatch(login_success(res.data));
             alert("로그인 되었습니다.");
             navigate("/");

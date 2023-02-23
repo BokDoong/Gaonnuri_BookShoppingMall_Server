@@ -7,7 +7,7 @@ const MypageBar = () => {
                     <p className='mypage_menuname'>쇼핑</p>
                     <ul>
                         <li>
-                            <div className='mypage_menu'><a href="/mypage/order">주문/배송 조회</a></div>
+                            <div className='mypage_menu'><a href="/mypage/order/1">주문/배송 조회</a></div>
                         </li>
                     </ul>
                 </div>

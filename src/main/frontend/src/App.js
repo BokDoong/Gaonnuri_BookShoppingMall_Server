@@ -25,9 +25,9 @@ function App() {
   return ( 
     <Router>
       {/* 사용자 롤에 따른 헤더 및 페이지 */}
-      {user.info.role==="admin"?<HeaderAdmin/>:<Header/>}
+      {user.info.role==="ROLE_ADMIN"?<HeaderAdmin/>:<Header/>}
       <Routes>
-        {user.info.role==="admin"?<>
+        {user.info.role==="ROLE_ADMIN"?<>
           <Route path="/admin/" element={<Dashboard/>}></Route>
           <Route path="/admin/product/:id" element={<AdminManage/>}></Route>
           <Route path="/admin/product/register" element={<ProductReg/>}></Route>
@@ -41,8 +41,8 @@ function App() {
           <Route path="/register" element={<Register/>}></Route>
           <Route path="/mypage" element={<MypageMain/>}></Route>
           <Route path="/mypage/information" element={<Info />}></Route>
-          <Route path="/mypage/order" element={<MyOrder/>}></Route>
-          <Route path="/cart" element={<Cart/>}></Route>
+          <Route path="/mypage/order/:id" element={<MyOrder/>}></Route>
+          <Route path="/cart/:id" element={<Cart/>}></Route>
           <Route path="/detail/:id" element={<Detail/>}></Route>
         </>}
       </Routes>

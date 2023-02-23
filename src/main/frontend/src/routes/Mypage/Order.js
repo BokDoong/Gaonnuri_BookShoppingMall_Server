@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { Axios } from "../../CustomAxios";
 
 const Order = ({data,getData,checkedItemHandler}) => {
     const [count,setCount] = useState(data.count);
@@ -15,8 +16,8 @@ const Order = ({data,getData,checkedItemHandler}) => {
     const onDeleteClick = () => {
         let del = window.confirm("정말 주문을 취소하시겠습니까?");
         if(del){
-            const uri = "http://localhost:3001/member_order/"+data.id;
-            axios.delete(uri);
+            const uri = "api/v1/order/cancel?orderid="+data.id;
+            Axios.post(uri);
             getData();
             alert("주문이 취소되었습니다");
         }

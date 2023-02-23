@@ -12,13 +12,11 @@ const AdminManage = () => {
    const [data,setData] = useState([]);
   const navigate = useNavigate();
    //상품 데이터 GET
-    //const uri = `/api/v1/admin?page=${id}`;
-    const uri = `http://localhost:3001/api_v1_admin_page=${id-1}`;
+    const uri = `/api/v1/admin?page=${id}`;
     const getProduct =() =>{
-      //Axios.get(uri)
-      axios.get(uri)
+      Axios.get(uri)
       .then((response)=>{
-      setData(response.data);
+      setData(response.data.content);
       console.log(response.data);
       })
     }

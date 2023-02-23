@@ -36,8 +36,10 @@ const Register = () =>{
   
   //비밀번호 형식 체크
   const PWCheck = () => {
-    let RegExp =  /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d@$!%*#?&]{10,}$/;
-    if(RegExp.test(PW))return true;
+    let RegExp1 = /(?=.*?[a-z])(?=.*?[A-Z])/;
+    let RegExp2 = /(?=.*?[0-9])(?=.*?[#?!@$%^&*-])/;
+    let RegExp3 = /^.{8,18}$/;
+    if(RegExp1.test(PW)&&RegExp2.test(PW)&&RegExp3.test(PW))return true;
     else return false;
   }
 
@@ -91,8 +93,8 @@ const Register = () =>{
       navigate("/");
     })
     .catch((err)=>{
-     console.log(err.response);
-     alert("회원가입에 실패했습니다");
+      console.log(err.response);
+      alert("회원가입할 수 없습니다");
     });
   }
   //회원가입 클릭

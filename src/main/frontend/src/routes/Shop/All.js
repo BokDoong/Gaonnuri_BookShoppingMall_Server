@@ -16,12 +16,10 @@ const All = () =>{
     
     //상품데이터 GET
     const getProduct =async() =>{
-        //const uri = `/api/v1/item?page=${id-1}`;
-        //Axios.get(uri)
-        const uri = `http://localhost:3001/api_v1_item_page=${id-1}`;
-        await axios.get(uri)
+        const uri = `/api/v1/item?page=${id-1}`;
+        await Axios.get(uri)
         .then((response)=>{
-            return response.data.filter((product)=>product.itemStatus==="FOR_SALE")
+            return response.data.content.filter((product)=>product.itemStatus==="FOR_SALE")
         })
         .then((data)=>setData(data));
     }
@@ -31,7 +29,7 @@ const All = () =>{
                 <div className='category_list'>
                     <h2 className='category_title'>SHOP</h2>
                     <ul>
-                        <li >
+                        <li>
                             <a id="selected" href="/category/0/1">ALL</a>
                         </li>
                         

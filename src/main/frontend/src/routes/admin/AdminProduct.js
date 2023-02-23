@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom/dist";
 import { Axios } from "../../CustomAxios";
 
 const AdminProduct = ({product,getProduct}) =>{
-    const uri = `/product/${product.id}`
+    const uri = `/api/v1/admin/delete?id=${product.id}`
     const navigate = useNavigate();
     //삭제버튼 클릭
     const deleteClick = async(event)=>{

@@ -1,5 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
+import { Axios } from '../../CustomAxios';
 import { remove_userInfo } from '../../data/authReducer';
 
 const Header = () => {
@@ -10,6 +11,8 @@ const Header = () => {
     //로그아웃 클릭
     const logoutClick = () =>{
         dispatch(remove_userInfo());
+        const uri="api/v1/member/logout";
+        Axios.get(uri);
     }
     return (
        <div id="Header">
@@ -68,7 +71,7 @@ const Header = () => {
                                 </ul>
                             </li>
                             <li>
-                                {user.isLoggedIn?<a href='/cart'>CART</a>:<a href='/login'>CART</a>}
+                                {user.isLoggedIn?<a href='/cart/1'>CART</a>:<a href='/login'>CART</a>}
                             </li>
                         </ul>
                     </div>

@@ -1,15 +1,13 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { Axios } from "../../CustomAxios";
 
 const CartItem = ({data,getData,checkedItemHandler}) => {
     const [count,setCount] = useState(data.count);
 
     useEffect(()=>{
-        const uri = "http://localhost:3001/member_cart/"+data.id;
-        const temp = data;
-        temp.count = count;
-        axios.put(uri,temp);
-        console.log(temp);
+        const uri = `/api/v1/cartItem?itemId=${data.id}&count=${count}`;
+        Axios.put(uri);
     },[count,data])
 
     const checkHandler = (e) => {
@@ -23,8 +21,8 @@ const CartItem = ({data,getData,checkedItemHandler}) => {
         setCount(count+1);
     }
     const onDeleteClick = () => {
-        const uri = "http://localhost:3001/member_cart/"+data.id;
-        axios.delete(uri);
+        const uri = `/api/v1/cartItem?itemId=${data.id}`;
+        Axios.delete(uri);
         getData();
     }
     return (

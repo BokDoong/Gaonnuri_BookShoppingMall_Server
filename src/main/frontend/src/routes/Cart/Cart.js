@@ -1,13 +1,17 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { Axios } from "../../CustomAxios";
 import CartItem from "./CartItem";
 
 const Cart = () =>{
+    const navigate = useNavigate();
+    const {id} = useParams();
     const [data,setData] = useState([]);
     const [list,setList] = useState(new Set());
     const getData = () =>{
-        const uri = "http://localhost:3001/member_cart";
-        axios.get(uri)
+        const uri = `/api/v1/cart?page=${id-1}`;
+        Axios.get(uri)
         .then((res)=>{setData(res.data);console.log(res)});
     }
     useEffect(()=>{
@@ -15,11 +19,15 @@ const Cart = () =>{
     },[])
 
     const onOrderClick = () => {
-        const uri = "http://localhost:3001/cart_order";
+        const uri = "/api/v1/cartItem/orders";
         let temp = [];
         list.forEach((product)=>{temp=[...temp,{cartItemId:product}]});
         console.log("temp:",temp);
-        axios.post(uri,temp);
+        Axios.post(uri,temp)
+        .then(()=>{
+            alert("주문이 완료되었습니다");
+            navigate("/mypage/order/1");
+        })
     }
 
     const ontopCheck = (e) => {

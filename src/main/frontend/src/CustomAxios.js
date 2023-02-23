@@ -44,17 +44,15 @@ Axios.interceptors.response.use(
 const getRefreshToken = async() => {
   const refreshToken = localStorage.getItem("refreshToken");
   const accessToken = localStorage.getItem("accessToken");
-  const data = {accessToken:accessToken,refreshToken:refreshToken}
+  const data = {refreshToken:refreshToken,accessToken:accessToken};
   await Axios.post("/api/auth/v1/reissue",data)
     .then((res) => {
-      console.log(res);
       const response = res.data;
       const newAccessToken = response.accessToken;
       localStorage.removeItem("accessToken");
       localStorage.setItem("accessToken", newAccessToken);
     })
     .catch((e) => {
-      alert("로그아웃되었습니다");
       console.log("Token Reissue Fail : " + e);
       localStorage.removeItem('accessToken');
       localStorage.removeItem('refreshToken');

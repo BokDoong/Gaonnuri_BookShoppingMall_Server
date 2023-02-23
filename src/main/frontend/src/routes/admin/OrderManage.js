@@ -3,16 +3,16 @@ import { useEffect, useState } from "react";
 import AdminOrder from "./AdminOrder";
 import AdminMenu from "./AdminMenu";
 import { useParams } from "react-router-dom";
+import { Axios } from "../../CustomAxios";
 
 const OrderManage = () =>{
     const {id} = useParams();
+    const [loading,setLoading] = useState(false);
     const [data,setData] = useState([]);
-    const [list,setList] = useState(new Set());
     const getData = () =>{
-        //const uri = `api_v1_admin_orders_page=${id-1}`;
-        const uri = `http://localhost:3001/api_v1_admin_orders_page=${id-1}`;
-        axios.get(uri)
-        .then((res)=>{setData(res.data);console.log(res)});
+        const uri = `api/v1/admin/orders?page=${id-1}`;
+        Axios.get(uri)
+        .then((res)=>{setData(res.data.content);setLoading(true);console.log(res)});
     }
     useEffect(()=>{
         getData();
@@ -32,7 +32,8 @@ const OrderManage = () =>{
                     <div style={{width: "15%"}}className="cart_table_top_cell">진행상태</div>
                     <div style={{width: "15%"}}className="cart_table_top_cell"></div>
                 </div>
-                {data.map((data)=>{
+                {console.log(loading)}
+                {!loading?<></>:data.map((data)=>{
                     return(
                         <AdminOrder data={data} getData={getData}/>
                     )

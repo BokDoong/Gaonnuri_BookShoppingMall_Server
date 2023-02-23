@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
+import { Axios } from "../../CustomAxios";
 
 const Detail = () => {
     const user = useSelector(state=>state.user);
@@ -11,10 +12,8 @@ const Detail = () => {
     const [count,setCount] = useState(1);
     //상품데이터 GET
     const getProduct =() =>{
-        //const uri = `/api/v1/item/detail?id=${id}`;
-        const uri = `http://localhost:3001/api_v1_item_detail_id=${id}`;
-        //Axios.get(uri)
-        axios.get(uri)
+        const uri = `/api/v1/item/detail?id=${id}`;
+        Axios.get(uri)
         .then((res)=>{setData(res.data);console.log(res.data)});
     }
     useEffect(()=>{
@@ -35,8 +34,8 @@ const Detail = () => {
             navigate("/login");
         }
         const postdata = {"itemId":id,"count":count};
-        const uri = "/cart"
-        axios.post(uri,postdata);
+        const uri = "/api/v1/cart"
+        Axios.post(uri,postdata);
         document.querySelector(".popup_container_hidden").classList.add("popup_container");
         document.querySelector(".popup_container").classList.remove("popup_container_hidden");
     }
@@ -48,10 +47,14 @@ const Detail = () => {
     const onOrderClick = () => {
         let res = window.confirm("정말로 상품을 구매하시겠습니까?");
         if(res){
-            const uri = "http://localhost:3001/order"
+            const uri = "api/v1/order/do";
             let postdata = {itemId:data.id,count:count};
-            axios.post(uri,postdata);
-            navigate("/mypage/order");
+            Axios.post(uri,postdata)
+            .then(navigate("/mypage/order"))
+            .catch((err)=>{
+                alert("주문할 수 없습니다");
+                console.log(err.response);
+            })
         }
     }
     return (
@@ -103,7 +106,7 @@ const Detail = () => {
                     </div>
                     장바구니에 상품을 담았습니다.
                     <div className="gocart_link">
-                    <a href="/cart">
+                    <a href="/cart/1">
                         <div>
                             장바구니 바로가기
                         </div>

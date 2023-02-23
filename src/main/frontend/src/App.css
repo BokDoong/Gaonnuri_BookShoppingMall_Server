@@ -1408,7 +1408,7 @@ ul{
     vertical-align: middle;
     width: 15%;
 }
-.order_table_cell_choice{
+.admin_order_table_choice{
     display: table-cell;
     padding: 10px 0px;
     border-top: 1px solid rgb(228, 228, 228);
@@ -1420,9 +1420,10 @@ ul{
     vertical-align: middle;
     width: 15%;
 }
-.order_table_cell_choice button{
-    width: 100px;
-    height: 40px;
+.order_table_btn{
+    margin: 5px;
+    width: 80px;
+    height: 30px;
 }
 
 .cart_order{
