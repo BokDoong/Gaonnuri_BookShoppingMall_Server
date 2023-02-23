@@ -1,6 +1,6 @@
 package GaonNuri.Project.ShoppingMall.cart.data.entity;
 
-import GaonNuri.Project.ShoppingMall.user.data.entity.Member;
+import GaonNuri.Project.ShoppingMall.member.data.entity.Member;
 import lombok.*;
 
 import javax.persistence.*;
@@ -20,4 +20,11 @@ public class Cart {
     @OneToOne
     @JoinColumn(name = "member_id")
     private Member member;
+
+    public static Cart createCart(Member member) {
+        Cart cart = new Cart();
+
+        cart.member = member;
+        return cart;
+    }
 }

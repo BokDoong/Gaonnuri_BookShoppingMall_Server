@@ -3,14 +3,17 @@ package GaonNuri.Project.ShoppingMall.order;
 import GaonNuri.Project.ShoppingMall.item.data.entity.Items;
 import GaonNuri.Project.ShoppingMall.item.data.enums.ItemStatus;
 import GaonNuri.Project.ShoppingMall.item.repository.ItemsRepository;
+import GaonNuri.Project.ShoppingMall.member.repository.AuthorityRepository;
+import GaonNuri.Project.ShoppingMall.member.repository.MemberRepository;
 import GaonNuri.Project.ShoppingMall.order.data.entity.Order;
 import GaonNuri.Project.ShoppingMall.order.data.entity.OrderItem;
 import GaonNuri.Project.ShoppingMall.order.repository.OrderRepository;
-import GaonNuri.Project.ShoppingMall.user.repository.AuthorityRepository;
+import GaonNuri.Project.ShoppingMall.order.service.inter.OrderService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -29,6 +32,13 @@ public class OrderTest {
     AuthorityRepository authorityRepository;
     @Autowired
     ItemsRepository itemsRepository;
+    @Autowired
+    OrderService orderService;
+    @Autowired
+    PasswordEncoder passwordEncoder;
+    @Autowired
+    MemberRepository memberRepository;
+
 
     @PersistenceContext
     EntityManager em;
@@ -44,6 +54,8 @@ public class OrderTest {
 
         return items;
     }
+
+
 
     @Test
     public void 영속성_전이_테스트() {

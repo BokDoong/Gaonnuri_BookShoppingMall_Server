@@ -1,6 +1,6 @@
 package GaonNuri.Project.ShoppingMall.jwt;
 
-import GaonNuri.Project.ShoppingMall.user.data.dto.EntryPointErrorResponse;
+import GaonNuri.Project.ShoppingMall.member.data.dto.EntryPointErrorResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;

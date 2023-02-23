@@ -7,8 +7,6 @@ public interface ItemService {
 
     Page<ItemsResponseDto.ItemsInfo> showItemsOnly(int page, int size);
 
-    Page<ItemsResponseDto.DetailItemsInfo> showItemsDetails(int page, int size);
-
     ItemsResponseDto.DetailItemsInfo ItemsDetails(long id);
 
 }

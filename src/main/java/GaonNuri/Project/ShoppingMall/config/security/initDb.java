@@ -1,8 +1,8 @@
 package GaonNuri.Project.ShoppingMall.config.security;
 
-import GaonNuri.Project.ShoppingMall.user.data.entity.Authority;
-import GaonNuri.Project.ShoppingMall.user.data.enums.AuthorityEnum;
-import GaonNuri.Project.ShoppingMall.user.repository.AuthorityRepository;
+import GaonNuri.Project.ShoppingMall.member.data.entity.Authority;
+import GaonNuri.Project.ShoppingMall.member.data.enums.AuthorityEnum;
+import GaonNuri.Project.ShoppingMall.member.repository.AuthorityRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;

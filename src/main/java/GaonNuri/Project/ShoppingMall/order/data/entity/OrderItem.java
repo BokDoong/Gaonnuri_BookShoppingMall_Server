@@ -9,6 +9,7 @@ import javax.persistence.*;
 @Entity
 @Getter
 @Builder
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString(callSuper = true)
@@ -29,7 +30,22 @@ public class OrderItem extends BaseTimeEntity {
     @JoinColumn(name = "order_id")
     private Order order;
 
-    private int orderPrice;
-    private int count;
+    private int orderPrice; //주문가격
+    private int count;  //주문수량
 
+    //주문상품 생성
+    public static OrderItem createOrderItems(Items items, int count){
+
+        OrderItem orderItem = OrderItem.builder()
+                .items(items)
+                .count(count)
+                .orderPrice(items.getPrice())
+                .build();
+
+        return orderItem;
+    }
+
+    public int getTotalPrice(){
+        return orderPrice * count;
+    }
 }
