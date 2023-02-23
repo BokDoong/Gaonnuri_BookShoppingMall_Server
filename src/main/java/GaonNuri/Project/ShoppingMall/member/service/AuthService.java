@@ -65,8 +65,13 @@ public class AuthService {
         // authenticate 메서드가 실행이 기될 때 CustomUserDetailsService 에서 만들었던 loadUserByUsername 메서드가 실행됨
         Authentication authentication = authenticationManagerBuilder.getObject().authenticate(authenticationToken);
 
-        // JWT 토큰 생성
+        // JWT 토큰 생성 + DTO 생성
+        Member member = memberRepository.findByEmail(memberRequestDto.getEmail())
+                .orElseThrow(() -> new RuntimeException("회원 정보가 없습니다."));
         TokenDto tokenDto = tokenProvider.generateTokenDto(authentication);
+        tokenDto.setId(member.getId());
+        tokenDto.setEmail(member.getEmail());
+        tokenDto.setAuthority(member.getAuthorities());
 
         // refreshToken 저장
         RefreshToken refreshToken = RefreshToken.builder()

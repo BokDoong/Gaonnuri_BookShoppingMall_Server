@@ -1,19 +1,20 @@
 package GaonNuri.Project.ShoppingMall.member.data.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import GaonNuri.Project.ShoppingMall.member.data.entity.Authority;
+import lombok.*;
+
+import java.util.Set;
 
 @Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 public class TokenDto {
 
-    private String grantType;
     private String accessToken;
     private String refreshToken;
-    private Long accessTokenExpiresIn;
-    //타입, 만기시간 뺴기
+    private Long id;
+    private String email;
+    private Set<Authority> authority;
 }
