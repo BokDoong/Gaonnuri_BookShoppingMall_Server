@@ -39,11 +39,13 @@ public class OrderResponseDto {
     public static class OrderHistoryDto{
 
         public OrderHistoryDto(Order order) {
+            this.orderId = order.getId();
             this.orderDate = order.getOrderDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
             this.orderStatus = order.getOrderStatus();
             this.orderPrice = order.getOrderPrice();
         }
 
+        private Long orderId;
         private String orderDate;
         private OrderStatus orderStatus;
         private int orderPrice;
@@ -62,14 +64,14 @@ public class OrderResponseDto {
     public static class AdminOrderInfoDto{
 
         public AdminOrderInfoDto(Order order, String userName){
-            this.id = order.getId();
+            this.orderId = order.getId();
             this.userName = userName;
             this.orderDate = order.getOrderDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
             this.orderStatus = order.getOrderStatus();
             this.orderPrice = order.getOrderPrice();
         }
 
-        private Long id;
+        private Long orderId;
         private String userName;
         private OrderStatus orderStatus;
         private int orderPrice;

@@ -8,6 +8,7 @@ import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
 
 @SpringBootTest
 public class ItemRepositoryTest {
@@ -37,6 +38,7 @@ public class ItemRepositoryTest {
     }
 
     @Test
+    @Transactional
     void 상품_생성(){
         for (int i = 0; i < 7; i++) {
             Items items = Items.builder()

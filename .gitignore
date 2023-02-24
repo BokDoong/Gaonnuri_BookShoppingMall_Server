@@ -43,4 +43,4 @@ out/
 *.iml
 out
 gen
-/Users/ijin/Study/쇼핑몰_협업프로젝트/ShoppingMall/src/main/resources/application.properties
+src/main/resources/application.properties

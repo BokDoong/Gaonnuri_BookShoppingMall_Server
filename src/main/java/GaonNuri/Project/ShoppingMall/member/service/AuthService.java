@@ -1,10 +1,7 @@
 package GaonNuri.Project.ShoppingMall.member.service;
 
 import GaonNuri.Project.ShoppingMall.jwt.TokenProvider;
-import GaonNuri.Project.ShoppingMall.member.data.dto.MemberRequestDto;
-import GaonNuri.Project.ShoppingMall.member.data.dto.MemberResponseDto;
-import GaonNuri.Project.ShoppingMall.member.data.dto.TokenDto;
-import GaonNuri.Project.ShoppingMall.member.data.dto.TokenRequestDto;
+import GaonNuri.Project.ShoppingMall.member.data.dto.*;
 import GaonNuri.Project.ShoppingMall.member.data.entity.Authority;
 import GaonNuri.Project.ShoppingMall.member.data.entity.Member;
 import GaonNuri.Project.ShoppingMall.member.data.entity.RefreshToken;
@@ -88,7 +85,7 @@ public class AuthService {
      * 재발급
      */
     @Transactional
-    public TokenDto reissue(TokenRequestDto tokenRequestDto) {
+    public ReissueDto reissue(TokenRequestDto tokenRequestDto) {
         // refresh Token 검증
         if (!tokenProvider.validateToken(tokenRequestDto.getRefreshToken())) {
             throw new RuntimeException("Refresh Token 이 유효하지 않습니다.");
@@ -108,12 +105,13 @@ public class AuthService {
 
         // 새로운 토큰 생성
         TokenDto tokenDto = tokenProvider.generateTokenDto(authentication);
+        ReissueDto reissueDto = new ReissueDto(tokenDto.getAccessToken(), tokenDto.getRefreshToken());
 
         // refreshToken 업데이트
         RefreshToken newRefreshToken = refreshToken.updateValue(tokenDto.getRefreshToken());
         refreshTokenRepository.save(newRefreshToken);
 
         // 토큰 발급
-        return tokenDto;
+        return reissueDto;
     }
 }

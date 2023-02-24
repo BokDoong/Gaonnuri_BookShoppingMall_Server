@@ -27,7 +27,8 @@ const Login = () =>{
         .then((res)=>{
             dispatch(login_success(res.data));
             alert("로그인 되었습니다.");
-            if(res.data.authority.authorityStatus==="ROLE_ADMIN"){
+
+            if(res.data.authority[0].authorityStatus==="ROLE_ADMIN"){
                 navigate("/admin");
             }
             else navigate("/");

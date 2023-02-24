@@ -43,14 +43,14 @@ public class CartController {
 
     //장바구니 물품 수정(개수)
     @PutMapping("/cartItem")
-    public CartResponseDto updateCartItem(@RequestParam("itemId") Long itemId,@RequestParam("count") int count) {
-        return cartService.updateCartItemCount(itemId, count);
+    public CartResponseDto updateCartItem(@RequestParam("cartItemId") Long cartItemId,@RequestParam("count") int count) {
+        return cartService.updateCartItemCount(cartItemId, count);
     }
 
     //장바구니 물품 삭제
     @DeleteMapping("/cartItem")
-    public ResponseEntity<String> deleteCartItem(@RequestParam("itemId") Long itemId){
-        cartService.deleteCartItem(itemId);
+    public ResponseEntity<String> deleteCartItem(@RequestParam("cartItemId") Long cartItemId){
+        cartService.deleteCartItem(cartItemId);
 
         return new ResponseEntity<>("삭제되었습니다.", HttpStatus.OK);
     }

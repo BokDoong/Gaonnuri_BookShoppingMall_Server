@@ -146,7 +146,5 @@ public class CartService {
             CartItem cartItem = cartItemRepository.findById(cartOrderDto.getCartItemId()).orElseThrow(() -> new RuntimeException("장바구니 물품이 없습니다."));
             cartItemRepository.delete(cartItem);
         }
-
     }
-
 }

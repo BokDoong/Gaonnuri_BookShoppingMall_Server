@@ -1,9 +1,6 @@
 package GaonNuri.Project.ShoppingMall.member.controller;
 
-import GaonNuri.Project.ShoppingMall.member.data.dto.MemberRequestDto;
-import GaonNuri.Project.ShoppingMall.member.data.dto.MemberResponseDto;
-import GaonNuri.Project.ShoppingMall.member.data.dto.TokenDto;
-import GaonNuri.Project.ShoppingMall.member.data.dto.TokenRequestDto;
+import GaonNuri.Project.ShoppingMall.member.data.dto.*;
 import GaonNuri.Project.ShoppingMall.member.data.validation.JoinValidation;
 import GaonNuri.Project.ShoppingMall.member.data.validation.LoginValidation;
 import GaonNuri.Project.ShoppingMall.member.service.AuthService;
@@ -33,7 +30,7 @@ public class AuthController {
     }
 
     @PostMapping("/reissue")
-    public ResponseEntity<TokenDto> reissue(@RequestBody TokenRequestDto tokenRequestDto) {
+    public ResponseEntity<ReissueDto> reissue(@RequestBody TokenRequestDto tokenRequestDto) {
         return ResponseEntity.ok(authService.reissue(tokenRequestDto));
     }
 }
