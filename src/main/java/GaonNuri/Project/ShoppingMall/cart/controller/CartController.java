@@ -43,8 +43,8 @@ public class CartController {
 
     //장바구니 물품 수정(개수)
     @PutMapping("/cartItem")
-    public CartResponseDto updateCartItem(@RequestParam("cartItemId") Long cartItemId,@RequestParam("count") int count) {
-        return cartService.updateCartItemCount(cartItemId, count);
+    public CartResponseDto updateCartItem(@RequestParam("cartItemsId") Long cartItemsId,@RequestParam("count") int count) {
+        return cartService.updateCartItemCount(cartItemsId, count);
     }
 
     //장바구니 물품 삭제
