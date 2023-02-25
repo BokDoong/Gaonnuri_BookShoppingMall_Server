@@ -1,27 +1,26 @@
 import {BrowserRouter as Router, Route,Routes} from 'react-router-dom';
-import Header from './routes/Header/Header';
-import All from './routes/Shop/All';
-import Cart from './routes/Cart/Cart';
-import Dashboard from './routes/admin/Dashboard';
-import HeaderAdmin from './routes/Header/HeaderAdmin';
-import Home from './routes/Home';
-import Login from './routes/Login';
-import Register from './routes/Register';
-import ProductReg from './routes/admin/ProductReg';
-import Info from './routes/Mypage/Info';
-import MypageMain from './routes/Mypage/MypageMain';
-import './App.css';
+import Header from './pages/Header/Header';
+import All from './pages/Shop/All';
+import Cart from './pages/Cart/Cart';
+import Dashboard from './pages/admin/Dashboard';
+import HeaderAdmin from './pages/Header/HeaderAdmin';
+import Home from './pages/Home';
+import Login from './pages/Login';
+import Register from './pages/Register';
+import ProductReg from './pages/admin/ProductReg';
+import Info from './pages/Mypage/Info';
+import MypageMain from './pages/Mypage/MypageMain';
+import './styles/App.css';
 import { useSelector } from 'react-redux';
-import Detail from './routes/Shop/Detail';
-import ProductEdit from './routes/admin/ProductEdit';
-import AdminManage from './routes/admin/AdminManage';
-import MyOrder from './routes/Mypage/MyOrder';
-import OrderManage from './routes/admin/OrderManage';
+import Detail from './pages/Shop/Detail';
+import ProductEdit from './pages/admin/ProductEdit';
+import AdminManage from './pages/admin/AdminManage';
+import MyOrder from './pages/Mypage/MyOrder';
+import OrderManage from './pages/admin/OrderManage';
 
 function App() {
   // 유저 상태 가져옴
   const user = useSelector(state=>state.user);
-  console.log(user);
   return ( 
     <Router>
       {/* 사용자 롤에 따른 헤더 및 페이지 */}
