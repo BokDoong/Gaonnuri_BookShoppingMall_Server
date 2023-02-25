@@ -7,10 +7,7 @@ import GaonNuri.Project.ShoppingMall.member.service.AuthService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v1/auth")
@@ -33,6 +30,9 @@ public class AuthController {
     public ResponseEntity<ReissueDto> reissue(@RequestBody TokenRequestDto tokenRequestDto) {
         return ResponseEntity.ok(authService.reissue(tokenRequestDto));
     }
-}
 
-//전역에러 처리 + 전역응답 처리
+    @PostMapping("/check")
+    public ResponseEntity<Long> checkInfo(@RequestBody MemberCheckDto memberCheckDto) {
+        return ResponseEntity.ok(authService.checkInfo(memberCheckDto));
+    }
+}
