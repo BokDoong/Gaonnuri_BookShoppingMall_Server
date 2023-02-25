@@ -54,7 +54,7 @@ const Header = () => {
                                                         <a onClick={logoutClick} href="/">LOGOUT</a>
                                                     </p>
                                                     <p>
-                                                        <Link to='/mypage'>MY PAGE</Link>
+                                                        <Link to='/mypage/order/1'>MY PAGE</Link>
                                                     </p>
                                                 </div>
                                                 ):(

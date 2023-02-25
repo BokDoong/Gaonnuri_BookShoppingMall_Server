@@ -90,7 +90,7 @@ const Info = () => {
             }
             const uri = "/api/v1/member/update";
             Axios.put(uri,putData)
-            .then(navigate("/mypage"))
+            .then(navigate("/mypage/order/1"))
             .catch((err)=>{
                 alert("정확한 정보를 입력하세요");
             })
