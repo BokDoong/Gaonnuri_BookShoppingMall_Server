@@ -57,9 +57,14 @@ public class Member {
 
     // 회원 정보 수정
     public void updateMember(MemberUpdateDto dto, PasswordEncoder passwordEncoder) {
-        if(dto.getPassword() != null) this.password = passwordEncoder.encode(dto.getPassword());
-        if(dto.getName() != null) this.name = dto.getName();
-        if (dto.getPhone() != null) this.phone = dto.getPhone();
-        if (dto.getAddress() != null) this.address = dto.getAddress();
+        this.password = passwordEncoder.encode(dto.getPassword());
+        this.name = dto.getName();
+        this.phone = dto.getPhone();
+        this.address = dto.getAddress();
+    }
+
+    //비밀번호 수정
+    public void updatePassword(String password, PasswordEncoder passwordEncoder) {
+        this.password = passwordEncoder.encode(password);
     }
 }

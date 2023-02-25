@@ -64,4 +64,17 @@ public class MemberService {
         refreshTokenRepository.deleteByKey(String.valueOf(SecurityUtil.getLoginMemberId()))
                 .orElseThrow(() -> new RuntimeException("로그인 유저 정보가 없습니다."));
     }
+
+    /**
+     * 비밀번호 재설정
+     */
+    @Transactional
+    public MemberResponseDto resetPassword(Long memberId, String password) {
+        Member member = memberRepository.findById(memberId)
+                .orElseThrow(() -> new RuntimeException("해당 유저 정보가 없습니다."));
+
+        member.updatePassword(password, passwordEncoder);
+
+        return MemberResponseDto.of(member);
+    }
 }
