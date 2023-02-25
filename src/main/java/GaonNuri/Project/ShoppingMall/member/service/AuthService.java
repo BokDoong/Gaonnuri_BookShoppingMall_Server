@@ -114,4 +114,26 @@ public class AuthService {
         // 토큰 발급
         return reissueDto;
     }
+
+    /**
+     * 이름,이메일 검사
+     */
+    @Transactional
+    public long checkInfo(MemberCheckDto memberCheckDto) {
+
+        //해당 이름, 이메일로 회원정보를 가져온다
+        Member member1 = memberRepository
+                .findByName(memberCheckDto.getName())
+                .orElseThrow(() -> new RuntimeException("해당 이름과 일치하는 회원 정보가 없습니다."));
+        Member member2 = memberRepository
+                .findByEmail(memberCheckDto.getEmail())
+                .orElseThrow(() -> new RuntimeException("해당 이메일과 일치하는 회원 정보가 없습니다."));
+
+        //두 member 의 id 비교
+        if (member1.getId() == member2.getId()) {
+            return member1.getId();
+        } else {
+            return 0;
+        }
+    }
 }
