@@ -2,6 +2,8 @@ import axios from "axios";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { remove_userInfo } from "../store/authReducer";
+import {useCookies} from 'react-cookie';
+import { GetCookies } from "../store/cookie";
 
 
 export const refreshTokenAxios = axios.create({
@@ -98,8 +100,9 @@ console.log(accessToken);
   }
 );
 
+
 const getRefreshToken = async() => {
-  const refreshToken = localStorage.getItem("refreshToken");
+  const refreshToken = GetCookies();
   const accessToken = localStorage.getItem("accessToken");
   const data = {"refreshToken":refreshToken,"accessToken":accessToken};
   await refreshTokenAxios.post("/api/v1/auth/reissue",data)
@@ -114,7 +117,6 @@ const getRefreshToken = async() => {
       const navigate = useNavigate();
       console.log("Token Reissue Fail : " + e);
       localStorage.removeItem('accessToken');
-      localStorage.removeItem('refreshToken');
       dispatch(remove_userInfo());
       navigate("/");
     });

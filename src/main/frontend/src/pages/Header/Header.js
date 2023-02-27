@@ -2,17 +2,17 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Axios } from '../../utils/CustomAxios';
 import { remove_userInfo } from '../../store/authReducer';
-
+import { useCookies } from 'react-cookie';
 const Header = () => {
     const dispatch = useDispatch();
-
     const user = useSelector(state=>state.user);
+    const [cookies, setCookie, removeCookie] = useCookies();
 
     //로그아웃 클릭
     const logoutClick = () =>{
         dispatch(remove_userInfo());
         localStorage.removeItem("accessToken");
-        localStorage.removeItem("refreshToken");
+        removeCookie('refreshToken');
         const uri="api/v1/member/logout";
         Axios.get(uri);
     }

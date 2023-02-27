@@ -1,6 +1,5 @@
 import HomeImage from "../assets/HomeImage.jpg";
-
-
+import { useCookies } from 'react-cookie';
 const Home = () =>{
     return (
         <div className="container">

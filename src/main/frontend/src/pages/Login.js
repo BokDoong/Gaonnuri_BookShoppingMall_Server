@@ -4,7 +4,10 @@ import { Axios } from '../utils/CustomAxios';
 import { useDispatch } from 'react-redux';
 import { login_success } from '../store/authReducer';
 import axios from 'axios';
+import { useCookies } from 'react-cookie';
+import { SetCookies } from '../store/cookie';
 const Login = () =>{
+    const [cookies, setCookie, removeCookie] = useCookies();
     const [ID,setID] = useState("");
     const [PW,setPW] = useState("");
     const navigate = useNavigate();
@@ -28,7 +31,9 @@ const Login = () =>{
         .then((res)=>{
             dispatch(login_success(res.data));
             localStorage.setItem("accessToken",res.data.accessToken);
-            localStorage.setItem("refreshToken",res.data.refreshToken);
+            let date = new Date();
+            date.setTime(date.getTime() + 24 * 60 * 60 * 1000);
+            setCookie("refreshToken",res.data.refreshToken,{expires: date});
             if(res.data.authority[0].authorityStatus==="ROLE_ADMIN"){
                 console.log("관리자");
                 alert("관리자계정으로 로그인합니다");
@@ -66,6 +71,9 @@ const Login = () =>{
                                     </li>
                                 </ul>
                                 <div className='btn_register'><a href='/register'>회원가입</a></div>
+                                <div className='login_reset'>
+                                    <div>비밀번호를 잊으셨나요?</div><a href='/reset'>비밀번호 재설정하기</a>
+                                </div>
                             </fieldset>
                         </div>
                     </div>

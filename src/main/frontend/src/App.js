@@ -17,6 +17,7 @@ import ProductEdit from './pages/admin/ProductEdit';
 import AdminManage from './pages/admin/AdminManage';
 import MyOrder from './pages/Mypage/MyOrder';
 import OrderManage from './pages/admin/OrderManage';
+import Reset from './pages/Reset';
 
 function App() {
   // 유저 상태 가져옴
@@ -35,6 +36,7 @@ function App() {
         </>
         :<>
           <Route path="/" element={<Home />}></Route>
+          <Route path="/reset" element={<Reset/>}></Route>
           <Route path="/category/0/:id" element={<All />}></Route>
           <Route path="/login" element={<Login />}></Route>
           <Route path="/register" element={<Register/>}></Route>

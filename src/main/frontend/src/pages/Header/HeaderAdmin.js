@@ -1,14 +1,16 @@
 import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { remove_userInfo } from '../../store/authReducer';
+import { useCookies } from 'react-cookie';
 
 const HeaderAdmin = () => {
+    const [cookies, setCookie, removeCookie] = useCookies();
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const logoutClick = () =>{
         dispatch(remove_userInfo());
         localStorage.removeItem("accessToken");
-        localStorage.removeItem("refreshToken");
+        removeCookie('refreshToken');
         navigate(`/`);
     }
     return (

@@ -256,7 +256,41 @@ ul{
     font-size: 14px;
 }
 
+.login_reset{
+    margin-top: 20px;
+    text-align: center;
+}
 
+.login_reset div{
+    float: left;
+    width: 150px;
+    margin-left: 60px;
+    color: #575555;
+    font-size: 12px;
+}
+.login_reset a{
+    text-decoration: none;
+    float: left;
+    width: 150px;
+    color: #4625c7;
+    font-size: 12px;
+    font-weight: 500;
+}
+/* ----------------------------------------------reset--------------------------------------- */
+.reset_hidden{
+    display: none;
+}
+
+.reset{
+    position: relative;
+    width: 520px;
+    margin: 0 auto;
+}
+
+.reset_notice{
+    margin-top: 25px;
+    text-align: center;
+}
 /* ----------------------------------------------register--------------------------------------- */
 #container{
     position: relative;
