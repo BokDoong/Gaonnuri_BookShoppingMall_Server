@@ -1,4 +1,4 @@
-package GaonNuri.Project.ShoppingMall.config.entity;
+package GaonNuri.Project.ShoppingMall.config.auditing;
 
 import lombok.Getter;
 import lombok.Setter;

@@ -1,6 +1,6 @@
 package GaonNuri.Project.ShoppingMall.item.data.entity;
 
-import GaonNuri.Project.ShoppingMall.config.entity.BaseTimeEntity;
+import GaonNuri.Project.ShoppingMall.config.auditing.BaseTimeEntity;
 import GaonNuri.Project.ShoppingMall.item.data.enums.ItemStatus;
 import lombok.*;
 

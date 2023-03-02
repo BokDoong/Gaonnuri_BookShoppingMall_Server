@@ -1,6 +1,6 @@
 package GaonNuri.Project.ShoppingMall.cart.data.entity;
 
-import GaonNuri.Project.ShoppingMall.config.entity.BaseTimeEntity;
+import GaonNuri.Project.ShoppingMall.config.auditing.BaseTimeEntity;
 import GaonNuri.Project.ShoppingMall.item.data.entity.Items;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;

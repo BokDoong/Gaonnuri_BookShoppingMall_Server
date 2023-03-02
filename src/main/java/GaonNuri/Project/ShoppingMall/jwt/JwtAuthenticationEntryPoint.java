@@ -1,6 +1,5 @@
 package GaonNuri.Project.ShoppingMall.jwt;
 
-import GaonNuri.Project.ShoppingMall.member.data.dto.EntryPointErrorResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
@@ -17,12 +16,13 @@ public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint {
 
         ObjectMapper objectMapper = new ObjectMapper();
 
-        EntryPointErrorResponse entryPointErrorResponse = new EntryPointErrorResponse();
-        entryPointErrorResponse.setMsg("인증이 실패하였습니다.");
+        JwtErrorResponse jwtErrorResponse = new JwtErrorResponse();
+        jwtErrorResponse.setMessage("인증이 실패하였습니다.");
+        jwtErrorResponse.setErrorCode("401");
 
         response.setStatus(401);
         response.setContentType("application/json");
         response.setCharacterEncoding("utf-8");
-        response.getWriter().write(objectMapper.writeValueAsString(entryPointErrorResponse));
+        response.getWriter().write(objectMapper.writeValueAsString(jwtErrorResponse));
     }
 }

@@ -38,6 +38,7 @@ public class JwtFilter extends OncePerRequestFilter {
             // 3. logout 체크
             if (redisTemplate.opsForValue().get(jwt) != null) {
                 throw new RuntimeException("로그아웃 된 사용자 입니다.");
+//                throw new ApiException(ExceptionEnum.SECURITY_01);
             }
             Authentication authentication = tokenProvider.getAuthentication(jwt);
             SecurityContextHolder.getContext().setAuthentication(authentication);
