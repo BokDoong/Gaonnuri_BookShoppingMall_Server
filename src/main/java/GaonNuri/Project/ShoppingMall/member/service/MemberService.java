@@ -1,5 +1,6 @@
 package GaonNuri.Project.ShoppingMall.member.service;
 
+import GaonNuri.Project.ShoppingMall.exception.CustomException;
 import GaonNuri.Project.ShoppingMall.member.data.dto.MemberResponseDto;
 import GaonNuri.Project.ShoppingMall.member.data.dto.MemberUpdateDto;
 import GaonNuri.Project.ShoppingMall.member.data.entity.Member;
@@ -14,6 +15,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpServletRequest;
+
+import static GaonNuri.Project.ShoppingMall.exception.constants.ErrorCode.MEMBER_NOT_FOUND;
 
 @Service
 @RequiredArgsConstructor
@@ -32,7 +35,7 @@ public class MemberService {
 
         MemberResponseDto result = memberRepository.findById(SecurityUtil.getLoginMemberId())
                 .map(MemberResponseDto::of)
-                .orElseThrow(() -> new RuntimeException("로그인 유저 정보가 없습니다."));
+                .orElseThrow(() -> new CustomException(MEMBER_NOT_FOUND));
 
         return result;
     }
@@ -44,7 +47,7 @@ public class MemberService {
     public void updateMyInfo(MemberUpdateDto dto) {
         Member member = memberRepository
                 .findById(SecurityUtil.getLoginMemberId())
-                .orElseThrow(() -> new RuntimeException("로그인 유저 정보가 없습니다."));
+                .orElseThrow(() -> new CustomException(MEMBER_NOT_FOUND));
 
         member.updateMember(dto,passwordEncoder);
     }
@@ -62,7 +65,7 @@ public class MemberService {
 
         // refreshToken 삭제
         refreshTokenRepository.deleteByKey(String.valueOf(SecurityUtil.getLoginMemberId()))
-                .orElseThrow(() -> new RuntimeException("로그인 유저 정보가 없습니다."));
+                .orElseThrow(() -> new CustomException(MEMBER_NOT_FOUND));
     }
 
     /**
@@ -71,7 +74,7 @@ public class MemberService {
     @Transactional
     public MemberResponseDto resetPassword(Long memberId, String password) {
         Member member = memberRepository.findById(memberId)
-                .orElseThrow(() -> new RuntimeException("해당 유저 정보가 없습니다."));
+                .orElseThrow(() -> new CustomException(MEMBER_NOT_FOUND));
 
         member.updatePassword(password, passwordEncoder);
 

@@ -1,5 +1,6 @@
 package GaonNuri.Project.ShoppingMall.member.service;
 
+import GaonNuri.Project.ShoppingMall.exception.CustomException;
 import GaonNuri.Project.ShoppingMall.jwt.TokenProvider;
 import GaonNuri.Project.ShoppingMall.member.data.dto.*;
 import GaonNuri.Project.ShoppingMall.member.data.entity.Authority;
@@ -20,6 +21,8 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.HashSet;
 import java.util.Set;
 
+import static GaonNuri.Project.ShoppingMall.exception.constants.ErrorCode.*;
+
 @Service
 @RequiredArgsConstructor
 public class AuthService {
@@ -38,12 +41,12 @@ public class AuthService {
         // 이메일 중복 회원 검증
         if (memberRepository.existsByEmail(memberRequestDto.getEmail())) {
             //RuntimeException 이 아님
-            throw new RuntimeException("이미 가입되어 있는 이메일입니다.");
+            throw new CustomException(ALREADY_SAVED_EMAIL);
         }
 
         //member 에 Authority 추가 + 예외 타입 수정
         Authority authority = authorityRepository
-                .findByAuthorityStatus(AuthorityEnum.ROLE_USER).orElseThrow(()->new RuntimeException("권한 정보가 없습니다."));
+                .findByAuthorityStatus(AuthorityEnum.ROLE_USER).orElseThrow(() -> new CustomException(AUTHORITY_NOT_FOUND));
 
         Set<Authority> set = new HashSet<>();
         set.add(authority);
@@ -64,7 +67,7 @@ public class AuthService {
 
         // JWT 토큰 생성 + DTO 생성
         Member member = memberRepository.findByEmail(memberRequestDto.getEmail())
-                .orElseThrow(() -> new RuntimeException("회원 정보가 없습니다."));
+                .orElseThrow(() -> new CustomException(MEMBER_NOT_FOUND));
         TokenDto tokenDto = tokenProvider.generateTokenDto(authentication);
         tokenDto.setId(member.getId());
         tokenDto.setEmail(member.getEmail());
@@ -88,15 +91,16 @@ public class AuthService {
     public ReissueDto reissue(TokenRequestDto tokenRequestDto) {
         // refresh Token 검증
         if (!tokenProvider.validateToken(tokenRequestDto.getRefreshToken())) {
-            throw new RuntimeException("Refresh Token 이 유효하지 않습니다.");
+            throw new CustomException(INVALID_REFRESH_TOKEN);
         }
+
 
         // access Token 에서 Authentication 객체 가져오기
         Authentication authentication = tokenProvider.getAuthentication(tokenRequestDto.getAccessToken());
 
         // DB 에서 member_id를 기반으로 Refresh Token 값 가져옴
         RefreshToken refreshToken = refreshTokenRepository.findByKey(authentication.getName())
-                .orElseThrow(() -> new RuntimeException("로그아웃 된 사용자입니다."));
+                .orElseThrow(() -> new CustomException(LOGOUT_MEMBER_ERROR));
 
         // refresh Token 이 다르면
         if (!refreshToken.getValue().equals(tokenRequestDto.getRefreshToken())) {
@@ -123,7 +127,7 @@ public class AuthService {
 
         //해당 이름, 이메일로 회원정보를 가져온다
         Member member = memberRepository.findByNameAndEmail(memberCheckDto.getName(), memberCheckDto.getEmail())
-                .orElseThrow(() -> new RuntimeException("해당 정보의 사용자가 없습니다."));
+                .orElseThrow(() -> new CustomException(MEMBER_NOT_FOUND));
 
         return member.getId();
     }

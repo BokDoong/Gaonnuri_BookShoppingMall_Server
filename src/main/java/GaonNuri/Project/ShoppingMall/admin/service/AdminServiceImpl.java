@@ -2,10 +2,10 @@ package GaonNuri.Project.ShoppingMall.admin.service;
 
 import GaonNuri.Project.ShoppingMall.admin.service.inter.AdminService;
 import GaonNuri.Project.ShoppingMall.config.s3.S3Uploader;
+import GaonNuri.Project.ShoppingMall.exception.CustomException;
 import GaonNuri.Project.ShoppingMall.item.data.entity.Items;
 import GaonNuri.Project.ShoppingMall.item.data.enums.ItemStatus;
 import GaonNuri.Project.ShoppingMall.item.repository.ItemsRepository;
-import GaonNuri.Project.ShoppingMall.member.repository.AuthorityRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,6 +16,7 @@ import java.util.Optional;
 
 import static GaonNuri.Project.ShoppingMall.admin.dto.ItemsRequestDto.ItemsRegisterInfo;
 import static GaonNuri.Project.ShoppingMall.admin.dto.ItemsRequestDto.ItemsUpdateInfo;
+import static GaonNuri.Project.ShoppingMall.exception.constants.ErrorCode.ALREADY_SAVED_ITEM;
 import static GaonNuri.Project.ShoppingMall.item.data.dto.ItemsResponseDto.DetailItemsInfo;
 
 @Service
@@ -24,7 +25,6 @@ public class AdminServiceImpl implements AdminService {
 
     private final ItemsRepository itemsRepository;
     private final S3Uploader s3Uploader;
-    private final AuthorityRepository authorityRepository;
 
     /**
      * 상품 수정
@@ -82,7 +82,11 @@ public class AdminServiceImpl implements AdminService {
             items.setImageUrl(storedFileName);
         }
 
-        itemsRepository.save(items);
+        if (itemsRepository.findByItemName(items.getItemName()) == null) {
+            itemsRepository.save(items);
+        } else {
+            throw new CustomException(ALREADY_SAVED_ITEM);
+        }
 
         DetailItemsInfo result = DetailItemsInfo.entityToDTO(items);
 

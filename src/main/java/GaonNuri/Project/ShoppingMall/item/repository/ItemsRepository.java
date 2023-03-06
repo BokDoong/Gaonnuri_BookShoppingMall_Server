@@ -12,5 +12,7 @@ public interface ItemsRepository extends JpaRepository<Items, Long> {
 
     List<Items> findAll(Sort sort);
 
+    Items findByItemName(String name);
+
 
 }

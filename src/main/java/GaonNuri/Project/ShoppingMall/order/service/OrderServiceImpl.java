@@ -1,5 +1,7 @@
 package GaonNuri.Project.ShoppingMall.order.service;
 
+import GaonNuri.Project.ShoppingMall.exception.CustomException;
+import GaonNuri.Project.ShoppingMall.exception.OutOfStockException;
 import GaonNuri.Project.ShoppingMall.item.data.entity.Items;
 import GaonNuri.Project.ShoppingMall.item.data.enums.ItemStatus;
 import GaonNuri.Project.ShoppingMall.item.repository.ItemsRepository;
@@ -10,7 +12,6 @@ import GaonNuri.Project.ShoppingMall.order.data.dto.OrderRequestDto;
 import GaonNuri.Project.ShoppingMall.order.data.entity.Order;
 import GaonNuri.Project.ShoppingMall.order.data.entity.OrderItem;
 import GaonNuri.Project.ShoppingMall.order.data.enums.OrderStatus;
-import GaonNuri.Project.ShoppingMall.order.exception.OutOfStockException;
 import GaonNuri.Project.ShoppingMall.order.repository.OrderRepository;
 import GaonNuri.Project.ShoppingMall.order.service.inter.OrderService;
 import lombok.RequiredArgsConstructor;
@@ -24,6 +25,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import static GaonNuri.Project.ShoppingMall.exception.constants.ErrorCode.ITEM_NOT_FOUND;
+import static GaonNuri.Project.ShoppingMall.exception.constants.ErrorCode.MEMBER_NOT_FOUND;
 import static GaonNuri.Project.ShoppingMall.order.data.dto.OrderResponseDto.*;
 
 @Service
@@ -45,7 +48,7 @@ public class OrderServiceImpl implements OrderService {
         //아이템 정보 들고오기
         Items items = itemsRepository
                 .findById(orderRequestDto.getItemId())
-                .orElseThrow(() -> new RuntimeException("주문 상품 정보가 없습니다."));
+                .orElseThrow(() -> new CustomException(ITEM_NOT_FOUND));
 
         //SoldOut 주문x
         CheckSoldOut(items);
@@ -75,7 +78,7 @@ public class OrderServiceImpl implements OrderService {
         int orderCount = orderRequestDto.getCount();
         int restCount = items.getStockNumber() - orderCount;
         if (restCount < 0) {
-            throw new OutOfStockException("상품 재고가 부족합니다.(현재 수량: " + items.getStockNumber() + ".");
+            throw new OutOfStockException("상품 재고가 부족합니다.(현재 수량: " + items.getStockNumber() + ")");
         } else if (restCount == 0) {
             items.setItemStatus(ItemStatus.SOLD_OUT);
             items.setStockNumber(restCount);
@@ -120,7 +123,7 @@ public class OrderServiceImpl implements OrderService {
     private Member getMember() {
         return memberRepository
                 .findById(SecurityUtil.getLoginMemberId())
-                .orElseThrow(() -> new RuntimeException("로그인 유저 정보가 없습니다."));
+                .orElseThrow(() -> new CustomException(MEMBER_NOT_FOUND));
     }
 
     /**

@@ -6,6 +6,8 @@ import GaonNuri.Project.ShoppingMall.cart.data.entity.Cart;
 import GaonNuri.Project.ShoppingMall.cart.data.entity.CartItem;
 import GaonNuri.Project.ShoppingMall.cart.repository.CartItemRepository;
 import GaonNuri.Project.ShoppingMall.cart.repository.CartRepository;
+import GaonNuri.Project.ShoppingMall.exception.CustomException;
+import GaonNuri.Project.ShoppingMall.exception.OutOfStockException;
 import GaonNuri.Project.ShoppingMall.item.data.entity.Items;
 import GaonNuri.Project.ShoppingMall.item.data.enums.ItemStatus;
 import GaonNuri.Project.ShoppingMall.item.repository.ItemsRepository;
@@ -14,7 +16,6 @@ import GaonNuri.Project.ShoppingMall.member.repository.MemberRepository;
 import GaonNuri.Project.ShoppingMall.member.utils.SecurityUtil;
 import GaonNuri.Project.ShoppingMall.order.data.dto.CartOrderDto;
 import GaonNuri.Project.ShoppingMall.order.data.dto.OrderRequestDto;
-import GaonNuri.Project.ShoppingMall.order.exception.OutOfStockException;
 import GaonNuri.Project.ShoppingMall.order.service.inter.OrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -23,8 +24,9 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
+
+import static GaonNuri.Project.ShoppingMall.exception.constants.ErrorCode.*;
 
 @Service
 @Transactional
@@ -53,7 +55,7 @@ public class CartService {
         }
 
         //원래 담아뒀던 물품인지 조회
-        Items items = itemsRepository.findById(cartRequestDto.getItemId()).orElseThrow(() -> new RuntimeException("상품 정보가 없습니다."));
+        Items items = itemsRepository.findById(cartRequestDto.getItemId()).orElseThrow(() -> new CustomException(ITEM_NOT_FOUND));
         //SoldOut 인지
         if (items.getItemStatus() == ItemStatus.SOLD_OUT) {
             throw new OutOfStockException("품절된 상품입니다.");
@@ -102,18 +104,19 @@ public class CartService {
     private Member getMember() {
         return memberRepository
                 .findById(SecurityUtil.getLoginMemberId())
-                .orElseThrow(() -> new RuntimeException("로그인 유저 정보가 없습니다."));
+                .orElseThrow(() -> new CustomException(MEMBER_NOT_FOUND));
     }
 
     /**
      * 장바구니 수정
      */
     public CartResponseDto updateCartItemCount(Long cartItemId, int count) {
-        CartItem cartItem = cartItemRepository.findById(cartItemId).orElseThrow(() -> new RuntimeException("장바구니 물품 정보가 없습니다."));
+        CartItem cartItem = cartItemRepository.findById(cartItemId).orElseThrow(() -> new CustomException(CARTITEM_NOT_FOUND));
 
         cartItem.updateCount(count);
 
-        CartResponseDto result = new CartResponseDto(cartItem.getId(), cartItem.getItems().getItemName(), cartItem.getItems().getPrice(), cartItem.getCount(), cartItem.getItems().getImageUrl());
+        CartResponseDto result = new CartResponseDto(cartItem.getId(), cartItem.getItems().getItemName(),
+                cartItem.getItems().getPrice(), cartItem.getCount(), cartItem.getItems().getImageUrl());
         return result;
     }
 
@@ -129,11 +132,9 @@ public class CartService {
      */
     public void orderCartItem(List<CartOrderDto> cartOrderDtoList) {
 
-        List<OrderRequestDto> orderRequestDtoList = new ArrayList<>();
-
         //cartItem -> OrderRequestDto 후 주문
         for (CartOrderDto cartOrderDto : cartOrderDtoList) {
-            CartItem cartItem = cartItemRepository.findById(cartOrderDto.getCartItemId()).orElseThrow(() -> new RuntimeException("장바구니 물품 정보가 없습니다."));
+            CartItem cartItem = cartItemRepository.findById(cartOrderDto.getCartItemId()).orElseThrow(() -> new CustomException(CARTITEM_NOT_FOUND));
             OrderRequestDto orderRequestDto = new OrderRequestDto();
             orderRequestDto.setItemId(cartItem.getItems().getId());
             orderRequestDto.setCount(cartItem.getCount());
@@ -143,7 +144,7 @@ public class CartService {
 
         //주문 끝난 장바구니 상품제거
         for (CartOrderDto cartOrderDto : cartOrderDtoList) {
-            CartItem cartItem = cartItemRepository.findById(cartOrderDto.getCartItemId()).orElseThrow(() -> new RuntimeException("장바구니 물품이 없습니다."));
+            CartItem cartItem = cartItemRepository.findById(cartOrderDto.getCartItemId()).orElseThrow(() -> new CustomException(CARTITEM_NOT_FOUND));
             cartItemRepository.delete(cartItem);
         }
     }

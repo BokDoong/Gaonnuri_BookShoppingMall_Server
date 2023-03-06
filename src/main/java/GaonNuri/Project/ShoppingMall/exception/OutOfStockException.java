@@ -1,4 +1,4 @@
-package GaonNuri.Project.ShoppingMall.order.exception;
+package GaonNuri.Project.ShoppingMall.exception;
 
 public class OutOfStockException extends RuntimeException{
 
