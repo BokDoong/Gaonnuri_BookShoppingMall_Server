@@ -26,10 +26,11 @@ public class ItemServiceImpl implements ItemService {
      * @param page : 페이지
      * @param size : 페이지당 나올 item 수
      */
+    // TODO: 2023/03/08 커서 기반 조회
     @Override
     public Page<ItemsInfo> showItemsOnly(int page, int size) {
-
-        List<ItemsInfo> itemsInfos = itemsRepository.findAll(Sort.by(Sort.Order.asc("itemStatus"))).stream().map(ItemsInfo::entityToDTO)
+        List<ItemsInfo> itemsInfos = itemsRepository.findAll(Sort.by(Sort.Order.asc("itemStatus")))
+                .stream().map(ItemsInfo::entityToDTO)
                 .collect(Collectors.toList());
 
         PageRequest pageRequest = PageRequest.of(page, size);
