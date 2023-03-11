@@ -25,3 +25,4 @@
 ### :point_up_2:시연 영상
 https://youtu.be/r13e1I5T9p0
 
+### :heavy_check_mark:리팩토링 및 트러블 슈팅
