@@ -12,7 +12,7 @@
     - 프론트 엔드 : HTML, CSS, ReactJS, Redux
     - 백엔드 : SpringBoot, SpringSecurity, Spring Data JPA, Querydsl, Gradle
 - **개발 환경** : IntelliJ, erdCloud
-- **호스팅 환경*8 : Amazon EC2
+- **호스팅 환경** : Amazon EC2
 - **데이터베이스** : RDB(운영 데이터베이스), Redis(캐시 서버), Amazon S3(이미지 파일)
 - **형상관리 툴** : GitHub
 
